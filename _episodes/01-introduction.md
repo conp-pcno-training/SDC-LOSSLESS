@@ -1,11 +1,13 @@
 ---
 title: "Introduction"
-teaching: 0
+teaching: 2
 exercises: 0
 questions:
-- "Key question (FIXME)"
+- "What is an EEG preprocessing pipeline?"
+- "What are the benefits of a Lossless pipeline in EEG research?"
 objectives:
-- "First learning objective. (FIXME)"
+- "Learn about the notion of a pipeline."
+- "Learn about the lossless state and use of annotations to mark time periods and channels."
 keypoints:
 - "First key point. Brief Answer to questions. (FIXME)"
 ---
