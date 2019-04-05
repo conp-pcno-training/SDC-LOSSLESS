@@ -46,3 +46,9 @@
 [training]: https://carpentries.github.io/instructor-training/
 [workshop-repo]: {{ site.workshop_repo }}
 [yaml]: http://yaml.org/
+
+[bids_lossless_eeg]: https://git.sharcnet.ca/bucanl_pipelines/bids_lossless_eeg
+[globus]: https://app.globus.org
+[gcp]: https://app.globus.org/file-manager/gcp
+[globusfm]: https://app.globus.org/file-manager
+[tcllib]: http://www.tcl.tk/software/tcllib/
