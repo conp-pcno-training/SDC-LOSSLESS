@@ -11,6 +11,10 @@ keypoints:
 - "First key point. Brief Answer to questions. (FIXME)"
 ---
 
+### Download and install MATLAB
+
+- You will need a fairly recent version of MATLAB (procedure tested on MATLAB 2012b and newer versions). For detailed installation instructions, click [here](https://www.mathworks.com/help/compiler/install-the-matlab-runtime.html).
+
 ### Set up Globus
 
 1. Open up your favourite browser and enter the [Globus][globus] website.
@@ -39,7 +43,7 @@ keypoints:
 
     - Once Globus Connect is running, input the Globus setup key into the Security Code field. Then, in the main Globus Connect window, click **Connect**.
 
-    **NOTE:** By default, your endpoint will only give you access to your home drive. If your project is in a different location, it will need to be added to the directory access list. In Windows and Mac, this should be the first window that appears after installation, and you can simply add the drives and directories you need. In Linux, you will initially only have access to the ~/home/ directory, so if you are working from an external drive, you will need to add ~/media/ as a directory in the File->Preferences window.
+    **NOTE:** By default, your endpoint will only give you access to your home drive. If your project is in a different location, it will need to be added to the directory access list. In Windows and Mac, this should be the first window that appears after installation, and you can simply add the drives and directories you need. In Linux, you will initially only have access to the `~/home/` directory, so if you are working from an external drive, you will need to add `~/media/` as a directory in the **File->Preferences** window.
 
 ### Download the data in a BIDS-compliant folder structure
 
