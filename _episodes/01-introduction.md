@@ -1,7 +1,7 @@
 ---
 title: "Introduction"
-teaching: 20
-exercises: 10
+teaching: 30
+exercises: 0
 questions:
 - "What is an EEG preprocessing pipeline?"
 - "What are the benefits of a Lossless pipeline in EEG research?"

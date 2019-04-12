@@ -8,15 +8,15 @@ questions:
 objectives:
 - "Submitting a batch of EEG files to run remotely through the Lossless pipeline."
 keypoints:
-- "First key point. Brief Answer to questions. (FIXME)"
+-  "Remember to always pay attention to whether you are running a BASH command on your **local** machine versus the **remote** computer cluster."
 ---
 
 ### Download/Setup the pipeline (local)
 
-- **Linux and Mac users**
+##### **Linux and Mac users**
 
 1. You will need the git package. You likely already have it natively installed with your system. If this is not the case, open up a terminal window, and type:
-	
+
     `>> sudo apt-get update`  
     `>> sudo apt-get install git`  
 
@@ -34,7 +34,7 @@ keypoints:
 
 5. Move the `sub-*` folders and files that you downloaded during the Setup procedure into the root face_13 directory.
 
-- **Windows users**
+##### **Windows users**
 
 1. Go to the [bids_lossless_eeg][bids_lossless_eeg] Gitlab repository, click the **Download ZIP** icon, and extract the contents into a desired location on your local drive.
 
@@ -112,9 +112,15 @@ keypoints:
 
 3. In the EEGLAB drop-down menu, navigate to **File->Batch->Context Configuration** and click **Load context config** to load a default configuration file that can then be modified and saved. Here, you will need to fill out the appropriate fields under Remote Locations, which will correspond to the remote paths for the project. For more info, see the Batch Context wiki about [Context configuration files](https://github.com/BUCANL/Batch-Context/wiki/Context-Configuration-Files).
 
+   ![Context Config Window]({{ page.root }}/fig/contextconfig.png)
+
+
 4. In the EEGLAB drop-down menu, navigate to **File->Batch->Batch Configuration** and click **Get batch config file names** to load the default batch configuration file(s) that can then be modified and saved. The default pipeline configuration files are located in `derivatives/lossless/code/config/remote_sbatch/`, and they are the files that begin with a ‘c’ (c01-c05). The configuration files we want to select for the face_13 data are in the face13_sbatch folder. Once the files have been selected, click **Clear/Load** to load the files into the property grid.
 
 **NOTE:** For most new projects, you might need to adjust some of the parameters here for running the pipeline. For the face_13 data, you can leave the config files as they are, except change the submit_options field in each config file to `--account=[group_name]`, where [group_name] is the name of your group on Graham. The most common changes for most other projects would be adjusting the memory and time_limit properties to optimize job runtimes. Once you are satisfied with all the parameters, you may click **Save as** to save each of the files with their new parameters, so that they can easily be loaded for future use. For more info, see the Batch Context wiki about [Batch configuration files](https://github.com/BUCANL/Batch-Context/wiki/Batch-Configuration-Files). 
+
+   ![Batch Config Window]({{ page.root }}/fig/batchconfig.png)
+
 
 ### Submit jobs
 
@@ -139,6 +145,8 @@ keypoints:
 8. Finally, in the drop down menu at the bottom of the Run history template batch window, select the **ssh2** option, to avoid having to enter your password several times upon job submission.
 
 9. Click **Ok** and type your Graham password into the window that appears. Your jobs should now start submitting for each data file, sequentially, one script at a time.
+
+   ![Run History Template Batch Window]({{ page.root }}/fig/runhtb.png)
 
 ### Query running jobs
 
@@ -175,3 +183,5 @@ keypoints:
 
 
 {% include links.md %}
+
+---

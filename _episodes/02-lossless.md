@@ -16,7 +16,7 @@ This section is designed to outline the key procedures of each of the [Lossless 
 ### Scalpart (s01)
 
 1. Load an initialized `*_eeg.set` file.
-2. Standard Deviation or quantiles used to reject comically bad epochs (% goes to bad channel).
+2. Standard deviation or quantiles used for rejecting comically bad epochs (% goes to bad channel).
 3. Re-reference to interpolated average site of MNI surface: without flagged channels.
 4. High pass filter.
 5. Low pass filter.
@@ -29,6 +29,7 @@ This section is designed to outline the key procedures of each of the [Lossless 
 12. Nearest Neighbour R on epochs for time removal.
 13. Low correlation only by time segment.
 14. Save a `*_sa.set` file.
+15. Generate an initial AMICA param file based on remaining data.
 
 ![Channel Standard Deviation Marks](https://git.sharcnet.ca/bucanl_pipelines/bids_lossless_eeg/uploads/a9c836eef4244f3c251a3f36ce19cc4f/diag111.png)
 
@@ -44,11 +45,25 @@ This section is designed to outline the key procedures of each of the [Lossless 
 
 ### Compart (s03)
 
-- FIXME
+1. Load a `*_sa.set` file.
+2. Load initial AMICA model.
+3. Create time marks based on the calculated log likelihood marks for each time point of the AMICA model (values between 0 and 1).
+4. Standard deviation or quantiles used for rejecting comically bad epochs based on abnormally high component activation.
+5. Mark any remaining small gaps of 2 seconds or less to avoid having too many excessively short segments.
+6. Save a `*_compart_data.set` file.
+7. Generate AMICA A, B, and C param files based on remaining data.
 
 ### Concat and Dipfit (s05)
 
-- FIXME
+1. Load a `*_compart_data.set` file.
+2. Load AMICA models A, B, and C.
+3. Create time marks based on the calculated log likelihoods for each time point of each of the AMICA models.
+4. Perform ISCtest to identify reliably replicable components, and flag those that aren't.
+5. Standard deviation or quantiles used for rejecting comically bad epochs based on abnormally high component activation (second pass).
+6. Calculate and flag time periods high in delta/theta, alpha, beta, and low/high gamma, but don't add them to the manual mark.
+7. Mark any remaining small gaps of 2 seconds or less to avoid having too many excessively short segments.
+8. Perform dipole fit.
+9. Save a `*_ll.set` file.
 
 {% include links.md %}
 
