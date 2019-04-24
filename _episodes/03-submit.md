@@ -8,7 +8,9 @@ questions:
 objectives:
 - "Submitting a batch of EEG files to run remotely through the Lossless pipeline."
 keypoints:
--  "Remember to always pay attention to whether you are running a BASH command on your **local** machine versus the **remote** computer cluster."
+- "Ensure you have all the pipeline files and your data files on both the **local** and **remote** machine."
+- "The input file for the Lossless pipeline is `*_eeg.set` and the output file is `*_ll.set`."
+- "Remember to always pay attention to whether you are running a BASH command on your **local** machine versus the **remote** computer cluster."
 ---
 
 ### Download/Setup the pipeline (local)
@@ -146,7 +148,7 @@ keypoints:
 
 9. Click **Ok** and type your Graham password into the window that appears. Your jobs should now start submitting for each data file, sequentially, one script at a time.
 
-   ![Run History Template Batch Window]({{ page.root }}/fig/runhtb.png)
+   ![Run History Template Batch Window]({{ page.root }}/fig/runhtb_lossless.png)
 
 ### Query running jobs
 
