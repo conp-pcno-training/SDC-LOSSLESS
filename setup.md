@@ -43,7 +43,13 @@ keypoints:
 
     - Once Globus Connect is running, input the Globus setup key into the Security Code field. Then, in the main Globus Connect window, click **Connect**.
 
+    ![Globus Initial Setup]({{ page.root }}/fig/GlobusInitialSetup.png "Globus Initial Setup")
+    ![Globus Connect Main]({{ page.root }}/fig/GlobusConnectMain.png "Globus Connect Main")
+
     **NOTE:** By default, your endpoint will only give you access to your home drive. If your project is in a different location, it will need to be added to the directory access list. In Windows and Mac, this should be the first window that appears after installation, and you can simply add the drives and directories you need. In Linux, you will initially only have access to the `~/home/` directory, so if you are working from an external drive, you will need to add `~/media/` as a directory in the **File->Preferences** window.
+
+    ![Globus Drop Down Preferences Menu]({{ page.root }}/fig/GlobusDropDownPreferences.png "Globus Drop Down Preferences Menu")
+    ![Globus Preferences Menu]({{ page.root }}/fig/GlobusPreferences.png "Globus Preferences Menu")
 
 ### Download the data in a BIDS-compliant folder structure
 
