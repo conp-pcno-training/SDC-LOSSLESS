@@ -34,7 +34,7 @@ keypoints:
 
     `>> mv bids_lossless_eeg face_13/`
 
-5. Move the `sub-*` folders and files that you downloaded during the Setup procedure into the root face_13 directory.
+5. Move the `sub-*` folders and files that you downloaded during the Setup procedure into the root face_13 directory. You may also simply use the entire directory that you downloaded during the setup procedure. It should be identical to the lossless pipeline you just cloned.
 
 ##### **Windows users**
 

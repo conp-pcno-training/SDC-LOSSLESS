@@ -55,9 +55,9 @@ keypoints:
 
 1. On the Globus website, navigate to the [File Manager][globusfm]. In the **Collection** field, search ‘bucanl_face13’.
 
-2. Select all folders with the sub- prefix, and select the option **Transfer or sync to…**.
+2. Select all folders, and select the option **Transfer or sync to…**.
 
-3. A new Destination header will appear with another Collection field to fill out. Select your Globus endpoint and navigate to your desired directory where you would like to download the data files.
+3. A new Destination header will appear with another Collection field to fill out. Select your Globus endpoint and navigate to your desired directory where you would like to download the files.
 
 4. Click **Start** to begin the transfer. This may take some time, depending on transfer speed.
 
