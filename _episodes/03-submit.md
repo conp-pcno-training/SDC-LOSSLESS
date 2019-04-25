@@ -130,7 +130,7 @@ keypoints:
 
 2. If your context configuration file is not already loaded, click **Load context config** and load the context configuration file you saved in step 3 above.
 
-3. Click **Load batch config** and load all the batch configuration files from step 4 above.
+3. If you batch configuration files are not already loaded, click **Load batch config** and load all the batch configuration files from step 4 above.
 
 4. Click **History file** and load all the scripts (s01-s05) corresponding to each of the batch configuration files (c01-c05). These scripts are located in the `derivatives/lossless/code/scripts/` directory.
 
@@ -138,11 +138,11 @@ keypoints:
 
     `>> cd path/to/project/directory/face_13/`
 
-6. List all the data files you’d like to run through the pipeline. This can be done using the find command. If using the BIDS directory structure, simply type:
+6. List all the data files you’d like to run through the pipeline. This can be done using the find command by typing:
 
     `>> find sub-* -type f -name "*_eeg.set"`
 
-7. This will print a list of all your initialized `*.set` files, including the path, which you can then copy straight from the terminal into the file field in the Run history template batch window, with one path/filename per line.
+7. This will print a list of all your initialized `*.set` files, including the path, which you can then copy straight from the terminal into the **file** field in the Run history template batch window, with one path/filename per line.
 
 8. Finally, in the drop down menu at the bottom of the Run history template batch window, select the **ssh2** option, to avoid having to enter your password several times upon job submission.
 
