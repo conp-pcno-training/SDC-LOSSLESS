@@ -1,7 +1,7 @@
 ---
 title: "Running the Lossless Pipeline"
-teaching: 45
-exercises: 15
+teaching: 35
+exercises: 10
 questions:
 - "How do we run a batch of EEG files through the Lossless pipeline?"
 - "How do we submit Lossless pipeline jobs to a remote parallel computing cluster?"
