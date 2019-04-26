@@ -4,7 +4,7 @@ teaching: 10
 exercises: 5
 questions:
 - "How do we purge bad time periods and components to prepare a file for segmentation?"
-- "How do we segment files that has been processed by the Lossless pipeline?"
+- "How do we segment files that have been processed by the Lossless pipeline?"
 objectives:
 - "To learn how to purge and segment files that have been pre-processed by the Lossless pipeline."
 keypoints:

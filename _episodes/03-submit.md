@@ -19,20 +19,28 @@ keypoints:
 
 1. You will need the git package. You likely already have it natively installed with your system. If this is not the case, open up a terminal window, and type:
 
-    `>> sudo apt-get update`  
-    `>> sudo apt-get install git`  
+    ```bash
+    >> sudo apt-get update
+    >> sudo apt-get install git
+    ```
 
 2. In the terminal, navigate to the location where you want to download the pipeline:
 
-    `>> cd path/to/project/directory/`
+    ```bash
+    >> cd path/to/project/directory/
+    ```
 
 3. Clone/download the pipeline repository into the the above directory. **NOTE:** Use the recursive flag in order to clone all the required submodules:
 
-    `>> git clone --recursive https://git.sharcnet.ca/bucanl_pipelines/bids_lossless_eeg.git`
+    ```bash
+    >> git clone --recursive https://git.sharcnet.ca/bucanl_pipelines/bids_lossless_eeg.git
+    ```
 
 4. Optional: Rename the pipeline directory to your desired project name (we will call it face_13 here):
 
-    `>> mv bids_lossless_eeg face_13/`
+    ```bash
+    >> mv bids_lossless_eeg face_13/
+    ```
 
 5. Move the `sub-*` folders and files that you downloaded during the Setup procedure into the root face_13 directory. You may also simply use the entire directory that you downloaded during the setup procedure. It should be identical to the lossless pipeline you just cloned.
 
@@ -48,33 +56,47 @@ keypoints:
 
 1. Open a new terminal window (or Powershell in Windows) and log in to Graham, replacing [user_name] with your Graham username:
 
-    `>> ssh [user_name]@graham.computecanada.ca`
+    ```bash
+    >> ssh [user_name]@graham.computecanada.ca
+    ```
 
 2. Navigate to the location where you want to download the pipeline onto the remote cluster, again replacing [user_name] with your Graham username, and [group_name] with the name of your group:
 
-	`>> cd /project/[group_name]/[user_name]/`
+    ```bash
+	>> cd /project/[group_name]/[user_name]/
+    ```
 
 3. Clone/download the pipeline repository into the the above directory. **NOTE:** Use the recursive flag in order to clone all the required submodules:
 
-    `>> git clone --recursive https://git.sharcnet.ca/bucanl_pipelines/bids_lossless_eeg.git`
+    ```bash
+    >> git clone --recursive https://git.sharcnet.ca/bucanl_pipelines/bids_lossless_eeg.git
+    ```
 
 4. Optional: Rename the pipeline directory to your desired project name (we will call it face_13 here):
 
-    `>> mv bids_lossless_eeg face_13`
+    ```bash
+    >> mv bids_lossless_eeg face_13
+    ```
 
 ### Remote setup
 
 1. Navigate to the code folder within your newly downloaded **remote** project directory:
 
-    `>> cd face_13/code/`
+    ```bash
+    >> cd face_13/code/
+    ```
 
 2. In case the setup-remote.sh script in this folder is not executable, run the following line in the bash terminal:
 
-    `>> chmod +x setup-remote.sh`
+    ```bash
+    >> chmod +x setup-remote.sh
+    ```
 
 3. Now, you can run the script by simply typing the following line into the terminal, and following the on-screen instructions.
 
-    `>> ./setup-remote.sh`
+    ```bash
+    >> ./setup-remote.sh`
+    ```
 
 **NOTE:** On Graham, when the prompts ask to enter the initialization filenames for Amica and Octave, you may simply use the defaults by hitting **Enter** after each prompt.
 
@@ -90,17 +112,21 @@ keypoints:
 
 1. In a terminal window opened to your **local** drives (**NOT** a terminal logged into Graham), navigate to your **local** project directory:
 
-    `>> cd path/to/project/directory/face_13/`
+    ```bash
+    >> cd path/to/project/directory/face_13/
+    ```
 
 2. Copy the **local** `*.set` and `*.fdt` files to the **remote** computer cluster, leaving these files in the BIDS folder structure (`sub-*/ses-*/eeg/`). Again, replace [user_name] with your own username, and [group_name] with the name of your group:
 
-    `>> rsync -rthvv --prune-empty-dirs --progress --include="*_eeg.*" --include="*/" --exclude="*" --exclude="/*/*/*/*/" sub-*`  
-    `[user_name]@gra-dtn1.computecanada.ca:/home/[user_name]/projects/[group_name]/[user_name]/face_13/`  
+    ```bash
+    >> rsync -rthvv --prune-empty-dirs --progress --include="*_eeg.*" --include="*/" --exclude="*" --exclude="/*/*/*/*/" sub-* [user_name]@gra-dtn1.computecanada.ca:/home/[user_name]/projects/[group_name]/[user_name]/face_13/
+    ```
 
 3. If a new staging script was created above, this will also need to be copied from the **local** to the **remote** end:
 
-    `>> rsync -rthvv --progress derivatives/lossless/code/scripts/staging_script.m`  
-    `[user_name]@gra-dtn1.computecanada.ca:/home/[user_name]/projects/[group_name]/[user_name]/face_13/derivatives/lossless/code/scripts/`  
+    ```bash
+    >> rsync -rthvv --progress derivatives/lossless/code/scripts/staging_script.m [user_name]@gra-dtn1.computecanada.ca:/home/[user_name]/projects/[group_name]/[user_name]/face_13/derivatives/lossless/code/scripts/
+    ```
 
 ### Configuration file setup
 
@@ -108,9 +134,11 @@ keypoints:
 
 2. Open EEGLAB by typing the following into the console window:
  
-    `>> addpath code`  
-    `>> lossless_path`  
-    `>> eeglab`  
+    ```bash
+    >> addpath code
+    >> lossless_path
+    >> eeglab
+    ```
 
 3. In the EEGLAB drop-down menu, navigate to **File->Batch->Context Configuration** and click **Load context config** to load a default configuration file that can then be modified and saved. Here, you will need to fill out the appropriate fields under Remote Locations, which will correspond to the remote paths for the project. For more info, see the Batch Context wiki about [Context configuration files](https://github.com/BUCANL/Batch-Context/wiki/Context-Configuration-Files).
 
@@ -136,11 +164,15 @@ keypoints:
 
 5. Open up a terminal window, and navigate to your local project directory again:
 
-    `>> cd path/to/project/directory/face_13/`
+    ```bash
+    >> cd path/to/project/directory/face_13/
+    ```
 
 6. List all the data files you’d like to run through the pipeline. This can be done using the find command by typing:
 
-    `>> find sub-* -type f -name "*_eeg.set"`
+    ```bash
+    >> find sub-* -type f -name "*_eeg.set"
+    ```
 
 7. This will print a list of all your initialized `*.set` files, including the path, which you can then copy straight from the terminal into the **file** field in the Run history template batch window, with one path/filename per line.
 
@@ -154,15 +186,21 @@ keypoints:
 
 1. To check the status of your submitted jobs, you need to log into Graham again:
 
-    `>> ssh [user_name]@graham.computecanada.ca`
+    ```bash
+    >> ssh [user_name]@graham.computecanada.ca
+    ```
 
 2. To list all currently queued and running jobs and check their status, type:	
 
-    `>> squeue -u [user_name]`
+    ```bash
+    >> squeue -u [user_name]
+    ```
 
 3. To check if any particular file succeeded or failed running during a particular script, you may check the corresponding `*.log` file in the `derivatives/lossless/log/` folder. A stack trace of any error will be printed here. This file can be accessed using an in-terminal text editor such as Vim:
 
-    `>> vi derivatives/lossless/log/`
+    ```bash
+    >> vi derivatives/lossless/log/
+    ```
 
 ### Copy files from remote to local
 
@@ -170,16 +208,21 @@ keypoints:
 
 2. To check if all files have in fact made it through the entire pipeline, you may locate these `*_ll.*` files using the find command, and seeing if there are any files missing:
 
-    `>> find derivatives/lossless/sub-* -type f -name "*_ll.*"`
+    ```bash
+    >> find derivatives/lossless/sub-* -type f -name "*_ll.*"
+    ```
 
 3. Now, you may copy these output files back to your **local** project directory. Make sure you are currently in your **local** project directory, if you aren’t already:
 
-    `>> cd path/to/project/directory/face_13/`
+    ```bash
+    >> cd path/to/project/directory/face_13/
+    ```
 
 4. Now, transfer the files using the following command in the terminal:
 
-    `>> rsync -rthvv --prune-empty-dirs --progress --include="*_ll*" --include="*/" --exclude="*" --exclude=”/*/*/*/*/”`  
-    `[user_name]@gra-dtn1.computecanada.ca:/home/[user_name]/projects/[group_name]/[user_name]/face_13/derivatives/lossless/sub-* derivatives/lossless/`
+    ```bash
+    >> rsync -rthvv --prune-empty-dirs --progress --include="*_ll*" --include="*/" --exclude="*" --exclude=”/*/*/*/*/” [user_name]@gra-dtn1.computecanada.ca:/home/[user_name]/projects/[group_name]/[user_name]/face_13/derivatives/lossless/sub-* derivatives/lossless/
+    ```
 
 5. Once this procedure is completed, you should notice all the `*_ll.set` and `*_ll.fdt` files in your **local** `derivatives/lossless/` directory. These files can now be put through the manual QC procedure for further processing.
 
