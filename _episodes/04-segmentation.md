@@ -33,8 +33,8 @@ To create a simple segmentation script, there are a few required steps. The step
 In order to exclude any channels, time periods, and components that have been flagged for removal, this bad data must be purged from the dataset before any segmentation is performed. Otherwise, we will be segmenting the original data, which defeats the purpose of running the files through the pipeline in the first place. To achieve this, we purge the data with manual flags using the function `pop_marks_select_data()`, with the **'remove'** argument set to **'on'**:
 
 ```matlab
-EEG = pop_marks_select_data(EEG,'channel marks',[],'labels',{'manual'},'remove','on'); % purge channel marks
-EEG = pop_marks_select_data(EEG,'time marks',[],'labels',{'manual'},'remove','on'); % purge time marks
+EEG = pop_marks_select_data(EEG,'channel marks',[],'labels',{'manual'},'remove','on');   % purge channel marks
+EEG = pop_marks_select_data(EEG,'time marks',[],'labels',{'manual'},'remove','on');      % purge time marks
 EEG = pop_marks_select_data(EEG,'component marks',[],'labels',{'manual'},'remove','on'); % purge component marks
 EEG = eeg_checkset(EEG);
 ```
@@ -63,13 +63,39 @@ This procedure only warps the current montage, but doesn't actually interpolate 
 EEG = interp_mont( EEG,'derivatives/lossless/code/misc/standard_1020_bucanl19.elc','nfids',0,'manual','off');
 ```
 
+> ## Note
+>
+> You may also find that after performing this transofrmation, your topographies are being plotted sideways. This can be easily fixed by rotating the nose direction to be facing upwards. After the `interp_mont()` line, insert one of the following lines:
+>
+> {: .source}
+>
+> > ## Option 1
+> > 
+> > ```matlab
+EEG.chaninfo.nosedir = '+Y';
+```
+> >
+> > {: .output}
+> {: .solution}
+> 
+> > ## Option 2
+> >
+> > ```matlab
+EEG.chaninfo.nosedir = '+X';
+```
+> >
+> > {: .output}
+> {: .solution}
+> {: .source}
+{: .callout}
+
 Depending on the montage file you are using, it may have the first few electrodes set as non-data fiducial channels to help with the warping stage. Most montages will either have no fiducials or three fiducials, but it is always good to check this because the interpolation will not work properly otherwise. Once the interpolation is completed, you should notice the first dimension of the EEG.data structure (representing the number of channels) to match the number of channels from the interpolated montage. This is one way to check that the interpolation worked as expected. 
 
 ## Segment the data
 
-Once the interpolation has been done, we can finally create segments out of the remaining data. For task-based paradigms (as opposed to resting paradigms), we will time-lock to specific events and create segments of a desired length of time around these events. For resting paradigms, we would simply create segments at regular intervals in order to do perform spectral analyses later. In this tutorial we will only focus on segmenting task-based paradigms. As an example, we will segment our files to be 1000ms, from -200 to 800ms before and after the event marker for a particular condition, using the first 200ms as a baseline for baseline correction.
+Once the interpolation has been done, we can finally create segments out of the remaining data. For task-based paradigms (as opposed to resting paradigms), we will time-lock to specific events and create segments of a desired length of time around these events. For resting paradigms, we would simply create segments at regular intervals in order to do perform spectral analyses later. In this tutorial we will only focus on segmenting task-based paradigms. As an example, we will segment our files to be 1000ms, from -200ms to 800ms before and after the event marker for a particular condition, using the first 200ms as a baseline for baseline correction.
 
-Considering we will likely want to create a separate segmented file for each condition, we first want to store the original EEG structure in a temporary vairable:
+Considering we will likely want to create a separate segmented file for each condition, we first want to store the original EEG structure in a temporary variable:
 
 ```matlab
 tmpEEG = EEG;
@@ -90,5 +116,8 @@ EEG = pop_saveset(EEG, 'filename',['[batch_dfn,_,-1]_condition2_seg.set']);
 
 **NOTE:** Notice that in the `pop_epoch()` function, we are using the tmpEEG variable we created above as the first argument, rather than the original EEG structure, because the EEG structure becomes the segmented version of the first condition, so for all subsequent conditions we would want to use the tmpEEG variable which still contains the original purged, unsegmented data.
 
+Now that the data files have been segmented, you might notice that the EEG.data structure has three dimensions instead of two. the first dimension is for number of channels and the second is for number of time points, just as before. The new third dimension is for number of trials (i.e. epochs).  they can be used to generate ERPs or to perform other kinds of analyses. You'll also notice that the second dimension representing the number of time points is signficantly smaller because it is not representing the number of time points within the original file anymore, but the number of time points within each epoch.
+
+The segmented files are now in a state that allows us to generate ERPs and perform other types of post processing.
 
 {% include links.md %}

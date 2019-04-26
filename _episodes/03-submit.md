@@ -13,9 +13,9 @@ keypoints:
 - "Remember to always pay attention to whether you are running a BASH command on your **local** machine versus the **remote** computer cluster."
 ---
 
-### Download/Setup the pipeline (local)
+## Download/Setup the pipeline (local)
 
-##### **Linux and Mac users**
+#### **Linux and Mac users**
 
 1. You will need the git package. You likely already have it natively installed with your system. If this is not the case, open up a terminal window, and type:
 
@@ -44,15 +44,16 @@ keypoints:
 
 5. Move the `sub-*` folders and files that you downloaded during the Setup procedure into the root face_13 directory. You may also simply use the entire directory that you downloaded during the setup procedure. It should be identical to the lossless pipeline you just cloned.
 
-##### **Windows users**
+#### **Windows users**
 
 1. Go to the [bids_lossless_eeg][bids_lossless_eeg] Gitlab repository, click the **Download ZIP** icon, and extract the contents into a desired location on your local drive.
 
 2. Optional: Rename the pipeline directory to your desired project name (we will call it face_13 here).
 
-3. Move the `sub-*` folders and files that you downloaded during the Setup procedure into the root face_13 directory.
+3. Move the `sub-*` folders and files that you downloaded during the Setup procedure into the root face_13 directory. You may also simply use the entire directory that you downloaded during the setup procedure. It should be identical to the lossless pipeline you just cloned.
 
-### Download/Setup the pipeline (remote)
+
+## Download/Setup the pipeline (remote)
 
 1. Open a new terminal window (or Powershell in Windows) and log in to Graham, replacing [user_name] with your Graham username:
 
@@ -78,7 +79,7 @@ keypoints:
     >> mv bids_lossless_eeg face_13
     ```
 
-### Remote setup
+## Remote setup
 
 1. Navigate to the code folder within your newly downloaded **remote** project directory:
 
@@ -100,15 +101,15 @@ keypoints:
 
 **NOTE:** On Graham, when the prompts ask to enter the initialization filenames for Amica and Octave, you may simply use the defaults by hitting **Enter** after each prompt.
 
-### Staging Script
+## Staging Script
 
 **NOTE:** The staging script is meant to add marks to each data file before they are processed by scalpart and the following pipeline scripts. It is called at the very beginning of the s01_scalpart script. It may be used to mark time periods that are out of task, so that they aren't considered by Amica in order to create a cleaner ICA decomposition. Other flagging criteria may also be added into this script, such as study-wide criteria, in addition to the single-file criteria used by the rest of the pipeline. This script may also include filtering and other pre-processing functions that stage the dataset before it is processed by the pipeline, and is essentially meant to normalize all the datasets with each other so that a statistically viable comparison can later be made.
 
 1. Write a staging script to add time marks for out-of-task time and in-task time, as well as any other study-wide criteria, warping to the standard montage, filtering, and other possible procedures to normalize the dataset before proceeding through the pipeline. A sample staging script has been written for the face_13 dataset (`face13_staging.m`), and is already located in the `derivatives/lossless/code/scripts/` folder. If you need to write a new staging script, you can name it `staging_script.m` and save it in the **local** `derivatives/lossless/code/scripts/` folder. 
 
-2. This script will then need to be copied over to the **remote** end, described below.
+2. This script will then need to be copied over to the **remote** end, described in the next section below.
 
-### Copy files from local to remote
+## Copy files from local to remote
 
 1. In a terminal window opened to your **local** drives (**NOT** a terminal logged into Graham), navigate to your **local** project directory:
 
@@ -128,13 +129,13 @@ keypoints:
     >> rsync -rthvv --progress derivatives/lossless/code/scripts/staging_script.m [user_name]@gra-dtn1.computecanada.ca:/home/[user_name]/projects/[group_name]/[user_name]/face_13/derivatives/lossless/code/scripts/
     ```
 
-### Configuration file setup
+## Configuration file setup
 
 1. Open MATLAB and navigate to your **local** project directory to make it your current path.
 
 2. Open EEGLAB by typing the following into the console window:
  
-    ```bash
+    ```matlab
     >> addpath code
     >> lossless_path
     >> eeglab
@@ -152,7 +153,7 @@ keypoints:
    ![Batch Config Window]({{ page.root }}/fig/batchconfig.png)
 
 
-### Submit jobs
+## Submit jobs
 
 1. In the EEGLAB drop-down menu, navigate to **File->Batch->Run history template batch**.
 
@@ -182,7 +183,7 @@ keypoints:
 
    ![Run History Template Batch Window]({{ page.root }}/fig/runhtb_lossless.png)
 
-### Query running jobs
+## Query running jobs
 
 1. To check the status of your submitted jobs, you need to log into Graham again:
 
@@ -202,7 +203,7 @@ keypoints:
     >> vi derivatives/lossless/log/
     ```
 
-### Copy files from remote to local
+## Copy files from remote to local
 
 1. Once the files have successfully run through each stage of the pipeline, you should end up with an identical folder structure (`sub-*/ses-*/eeg/`) in your **remote** `derivatives/lossless/` folder for each of the data files that ran through the pipeline. You will notice many intermediary files in these folders, but the final output files will end in `*_ll.set` and `*_ll.fdt`.
 
