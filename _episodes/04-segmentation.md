@@ -8,14 +8,14 @@ questions:
 objectives:
 - "To learn how to purge and segment files that have been pre-processed by the Lossless pipeline."
 keypoints:
-- "FIXME"
+- "A segmentation script will usually include purging of manual marks, interpolation, and finally segmentation."
 ---
 
 The segmentation of EEG data files may involve many different procedures. This may include warping/interpolating to a desired montage, purging the marked bad data, rereferencing, renaming files based on group and condition, filtering, and/or resampling. In this episode of the tutorial, we will focus on the most important parts of writing a segmentation script, which is essentially to purge the manual marks from the data and to create segments using the remaining data that can later be used to generate ERPs and perform other post-processing procedures.
 
 Typically, we would not segment the `*_ll.set` files from the output of the pipeline. Instead, it is preferable and highly recommended to perform a manual [quality check prodcedure](https://bucanl.github.io/SDC-LOSSLESS-QC/index.html) to ensure that you agree with the automated decisions made by the pipeline. Although the automated decisions of the pipeline are usually quite accurate in flagging time periods and components with artefacts, it does not guarantee that it will make the most ideal decisions, so reviewing the data manually is still a crucial step in EEG pre-processing in order to maximize the amount of cortical signal versus noise.
 
-With that in mind, this tutorial will assume you have files that have been manually quality checked already. These files would be identical to the`*_ll.set` files, except some of the annotations would have been manually modified by an expert quality reviewer.
+With that in mind, this tutorial will assume you have files that have been manually quality checked already (`*_qcr.set`). These files would be identical to the `*_ll.set` files, except some of the annotations would have been manually modified by an expert quality reviewer.
 
 ## Basic Segmentation
 
@@ -63,39 +63,28 @@ Once you click **Ok**, you should notice that the values of the transformation m
 EEG = warp_locs(EEG,'derivatives/lossless/code/misc/standard_1020_bucanl19.elc','transform',[-0.05686,-1.022,11.4,0.2837,0.1311,-1.295,0.9039,0.9884,0.8166],'manual','off');
 ```
 
-This procedure only warps the current montage, but doesn't actually interpolate yet. Now that we know both montages are sitting on the same surface, we can proceed with interpolation. To interpolate, we will use the `interp_mont()` function:
+This procedure only warps the current montage, but doesn't actually interpolate yet. Now that we know both montages are sitting on the same surface, interpolation can be done. To interpolate, we will use the `interp_mont()` function:
 
 ```matlab
 EEG = interp_mont( EEG,'derivatives/lossless/code/misc/standard_1020_bucanl19.elc','nfids',0,'manual','off');
 ```
 
-Depending on the montage file you are using, it may have the first few electrodes set as non-data fiducial channels to help with the warping stage. Most montages will either have no fiducials or three fiducials, but it is always good to check this because the interpolation will not work properly otherwise. Once you determine the number of fiducials, you can change the 0 after **'nfids'** to the correct value. After the interpolation is completed, you should notice the first dimension of the EEG.data structure (representing the number of channels) matches the number of channels from the interpolated montage. This is one way to check that the interpolation worked as expected. 
-
 > ## Note
 >
 > You may also find that after performing this transofrmation, your topographies are being plotted sideways. This can be easily fixed by rotating the nose direction to be facing upwards. After the `interp_mont()` line, insert one of the following lines:
 >
-> {: .source}
->
-> > ## Option 1
-> > 
-> > ```matlab
+> ```matlab
 EEG.chaninfo.nosedir = '+Y';
-```
-> >
-> > {: .output}
-> {: .solution}
-> 
-> > ## Option 2
-> >
-> > ```matlab
+```  
+>
+> ```matlab
 EEG.chaninfo.nosedir = '+X';
 ```
-> >
-> > {: .output}
-> {: .solution}
+>
 > {: .source}
 {: .callout}
+
+Depending on the montage file you are using, it may have the first few electrodes set as non-data fiducial channels to help with the warping stage. Most montages will either have no fiducials or three fiducials, but it is always good to check this because the interpolation will not work properly otherwise. Once the interpolation is completed, you should notice the first dimension of the EEG.data structure (representing the number of channels) to match the number of channels from the interpolated montage. This is one way to check that the interpolation worked as expected. 
 
 ## Segment the data
 
@@ -120,10 +109,14 @@ EEG = pop_rmbase(EEG,[-200 0]);
 EEG = pop_saveset(EEG, 'filename',['[batch_dfn,_,-1]_condition2_seg.set']);
 ```
 
-**NOTE:** Notice that in the `pop_epoch()` function, we are using the tmpEEG variable we created above as the first argument, rather than the original EEG structure, because the EEG structure becomes the segmented version of the first condition, so for all subsequent conditions we would want to use the tmpEEG variable which still contains the original purged, unsegmented data.
+> ## Note
+> Notice that in the `pop_epoch()` function, we are using the tmpEEG variable we created above as the first argument, rather than the original EEG structure, because the EEG structure becomes the segmented version of the first condition, so for all subsequent conditions we would want to use the tmpEEG variable which still contains the original purged, unsegmented data.
+>
+> {: .source}
+{: .callout}
 
 Now that the data files have been segmented, you might notice that the EEG.data structure has three dimensions instead of two. the first dimension is for number of channels and the second is for number of time points, just as before. The new third dimension is for number of trials (i.e. epochs).  they can be used to generate ERPs or to perform other kinds of analyses. You'll also notice that the second dimension representing the number of time points is signficantly smaller because it is not representing the number of time points within the original file anymore, but the number of time points within each epoch.
 
-The segmented files are now in a state that allows us to generate ERPs and perform other types of post processing.
+The segmented files are now in a state that allows us to generate ERPs and perform other types of analyses.
 
 {% include links.md %}
