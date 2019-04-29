@@ -57,7 +57,7 @@ We can use the **Warp Montage** button, which uses known electrode correspondenc
 
 ![Warp Montage]({{ page.root }}/fig/warpmont_biosemi.png "Warp Montage from 128-channel Biosemi to 10/20")
 
-Once you click **Ok**, you should notice that the values of the transformation matrix have changed and both montages are now sitting more or less on the same surface. You can make slight adjustments to any of the nine transformation values if you still think the coregistration could have worked a little bit better, but the automatically calculated transformation matrix will be sufficient. Once you have these values, you may then change the **'transform'** values in the `warp_locs()` function to the new automatically calculated values, and switch **'manual'** back to **'off'** so that the popup window doesn't appear anymore:
+Once you click **Ok**, you should notice that the values of the transformation matrix have changed and both montages are now sitting more or less on the same surface. You can make slight adjustments to any of the nine transformation values if you still think the coregistration could have worked a little bit better, but the automatically calculated transformation matrix should be sufficient. Once you have these values, for all subsequent files with the same original montage you may change the **'transform'** values in the `warp_locs()` function to the new automatically calculated values, and switch **'manual'** back to **'off'** so that the popup window doesn't appear anymore:
 
 ```matlab
 EEG = warp_locs(EEG,'derivatives/lossless/code/misc/standard_1020_bucanl19.elc','transform',[-0.05686,-1.022,11.4,0.2837,0.1311,-1.295,0.9039,0.9884,0.8166],'manual','off');
@@ -88,25 +88,26 @@ Depending on the montage file you are using, it may have the first few electrode
 
 ## Segment the data
 
-Once the interpolation has been done, we can finally create segments out of the remaining data. For task-based paradigms (as opposed to resting paradigms), we will time-lock to specific events and create segments of a desired length of time around these events. For resting paradigms, we would simply create segments at regular intervals in order to do perform spectral analyses later. In this tutorial we will only focus on segmenting task-based paradigms. As an example, we will segment our files to be 1000ms, from -200ms to 800ms before and after the event marker for a particular condition, using the first 200ms as a baseline for baseline correction.
+Once the interpolation has been done, we can finally epoch the remaining data. For task-based paradigms (as opposed to resting paradigms), we will time-lock to specific events and create segments of a desired length of time around these events. For resting paradigms, we would simply create segments at regular intervals in order to do perform spectral analyses later. In this tutorial we will only focus on segmenting task-based paradigms. As an example, we will segment our files to be 1000ms, from -200ms to 800ms before and after the event marker for a particular condition, using the first 200ms as a baseline for baseline correction.
 
 Considering we will likely want to create a separate segmented file for each condition, we first want to store the original EEG structure in a temporary variable:
 
 ```matlab
 tmpEEG = EEG;
 ```
+
 Next, we will want to create a separate segmented file for each condition by identifying the event markers to time-lock to and creating epochs around them. Then, a baseline correction is performed between -200ms and 0ms, and the new segmented file is saved with a new name:
 
 ```matlab
-%% segment condition_1
-EEG = pop_epoch(tmpEEG,{'cond1a' 'cond1b'},[-.2 .8],'newname','condition_1', 'epochinfo', 'yes');
+%% segment face condition
+EEG = pop_epoch(tmpEEG,{'face_inverted' 'face_upright'},[-.2 .8],'newname','face', 'epochinfo', 'yes');
 EEG = pop_rmbase(EEG,[-200 0]);
-EEG = pop_saveset(EEG, 'filename',['[batch_dfn,_,-1]_condition1_seg.set']);
+EEG = pop_saveset(EEG, 'filename',['[batch_dfn,_,-1]_face_seg.set']);
 
-%% segment condition_2
-EEG = pop_epoch(tmpEEG,{'cond2a' 'cond2b'},[-.2 .8],'newname','condition_2', 'epochinfo', 'yes');
+%% segment house condition
+EEG = pop_epoch(tmpEEG,{'house_inverted' 'house_upright'},[-.2 .8],'newname','house', 'epochinfo', 'yes');
 EEG = pop_rmbase(EEG,[-200 0]);
-EEG = pop_saveset(EEG, 'filename',['[batch_dfn,_,-1]_condition2_seg.set']);
+EEG = pop_saveset(EEG, 'filename',['[batch_dfn,_,-1]_house_seg.set']);
 ```
 
 > ## Note
