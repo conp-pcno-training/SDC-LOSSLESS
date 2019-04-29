@@ -43,7 +43,7 @@ EEG = eeg_checkset(EEG);
 
 Typically, we would warp and interpolate to the standard 10/20 head, or back to the original montage used for recording. At this stage we need to determine the appropriate transformation matrix that will warp the remaining electrodes to the surface of the desired montage, and then subsequently interpolate the missing channels. There are a number of functions currently available in EEGLAB that can achieve this, but we will focus on a couple of these functions here.
 
-Determining the correct transformation matrix might be a bit challenging, but there are tools available to help us with this procedure. For the purposes of this tutorial, let's assume that we are interpolating to the 10/20 sites. One way to do this is to call the following function:
+Determining the correct transformation matrix might be a bit challenging, but there are tools available to help us with this procedure. For the purposes of this tutorial, let's assume that we are interpolating to the 10/20 sites. First, we need to warp our current montage to sit perfectly on the surface of the montage that we would like to interpolate to. One way to do this is to call the following function:
 
 ```matlab
 EEG = warp_locs(EEG,'derivatives/lossless/code/misc/standard_1020_bucanl19.elc','transform',[0,0,0,0,0,0,1,1,1],'manual','on');
@@ -51,17 +51,25 @@ EEG = warp_locs(EEG,'derivatives/lossless/code/misc/standard_1020_bucanl19.elc',
 
 ![Coregistration]({{ page.root }}/fig/coregister1.png "Coregistration")
 
-Notice, we set the **'manual'** argument to **'on'**, as this will create a popup window that will make it easy to see the current state of the montage plotted against the montage we want to interpolate to. The goal is to make these two montages sit on the same surface. We can do this by adjusting the parameters of the transformation matrix. Each of the nine values represents the following types of transformation: [shiftX, shiftY, shiftZ, pitch, roll, yaw, scaleX, scaleY, scaleZ]. In most cases it will not be required to use trial and error to determine these values. Instead, we can use the **Warp Montage** button, which uses the known electrode correspondences between the two montages to determine the optimal transformation matrix. Once you click **Ok**, you should notice both montages are now sitting more or less on the same surface. You can make slight adjustments to any of the nine transformation values if you still think the coregistration could have worked a little bit better, but usually the automatically calculated transformation matrix will be sufficient. Once you have these values, you may then change the **'transform'** values in the `warp_locs()` function to the new automatically calculated values, and switch **'manual'** back to **'off'** so that the popup window doesn't appear anymore:
+Notice, we set the **'manual'** argument to **'on'**, as this will create a popup window that will make it easy to see the current state of the montage plotted against the montage we want to interpolate to. The goal is to make these two montages sit on the same surface. We can do this by adjusting the parameters of the transformation matrix. Each of the nine values represents the following types of transformation: [shiftX, shiftY, shiftZ, pitch, roll, yaw, scaleX, scaleY, scaleZ].  
+
+We can use the **Warp Montage** button, which uses known electrode correspondences between the two montages to determine the optimal transformation matrix. You may need to pair these electrodes manually depending on the montages. EEGLAB will pair them automatically if you are interpolating back to the original montage, but if you are interpolating to a different montage than the original (such as the standard 10/20 system), you will likely need to to pair the electrodes yourself. You can also use the **Align figucials** option if there are corresponding fiducials present in both montages.  
+
+![Warp Montage]({{ page.root }}/fig/warpmont_biosemi.png "Warp Montage from 128-channel Biosemi to 10/20")
+
+Once you click **Ok**, you should notice that the values of the transformation matrix have changed and both montages are now sitting more or less on the same surface. You can make slight adjustments to any of the nine transformation values if you still think the coregistration could have worked a little bit better, but the automatically calculated transformation matrix will be sufficient. Once you have these values, you may then change the **'transform'** values in the `warp_locs()` function to the new automatically calculated values, and switch **'manual'** back to **'off'** so that the popup window doesn't appear anymore:
 
 ```matlab
-EEG = warp_locs(EEG,'derivatives/lossless/code/misc/standard_1020_bucanl19.elc','transform',[1.254,0.06426,0.1043,0.002743,-0.01086,-1.57,1.011,1.011,0.9958],'manual','off');
+EEG = warp_locs(EEG,'derivatives/lossless/code/misc/standard_1020_bucanl19.elc','transform',[-0.05686,-1.022,11.4,0.2837,0.1311,-1.295,0.9039,0.9884,0.8166],'manual','off');
 ```
 
-This procedure only warps the current montage, but doesn't actually interpolate yet. Now that we know both montages are sitting on the same surface, interpolation can be done. To interpolate, we will use the `interp_mont()` function:
+This procedure only warps the current montage, but doesn't actually interpolate yet. Now that we know both montages are sitting on the same surface, we can proceed with interpolation. To interpolate, we will use the `interp_mont()` function:
 
 ```matlab
 EEG = interp_mont( EEG,'derivatives/lossless/code/misc/standard_1020_bucanl19.elc','nfids',0,'manual','off');
 ```
+
+Depending on the montage file you are using, it may have the first few electrodes set as non-data fiducial channels to help with the warping stage. Most montages will either have no fiducials or three fiducials, but it is always good to check this because the interpolation will not work properly otherwise. Once you determine the number of fiducials, you can change the 0 after **'nfids'** to the correct value. After the interpolation is completed, you should notice the first dimension of the EEG.data structure (representing the number of channels) matches the number of channels from the interpolated montage. This is one way to check that the interpolation worked as expected. 
 
 > ## Note
 >
@@ -88,8 +96,6 @@ EEG.chaninfo.nosedir = '+X';
 > {: .solution}
 > {: .source}
 {: .callout}
-
-Depending on the montage file you are using, it may have the first few electrodes set as non-data fiducial channels to help with the warping stage. Most montages will either have no fiducials or three fiducials, but it is always good to check this because the interpolation will not work properly otherwise. Once the interpolation is completed, you should notice the first dimension of the EEG.data structure (representing the number of channels) to match the number of channels from the interpolated montage. This is one way to check that the interpolation worked as expected. 
 
 ## Segment the data
 

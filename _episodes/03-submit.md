@@ -99,11 +99,13 @@ keypoints:
     >> ./setup-remote.sh`
     ```
 
-**NOTE:** On Graham, when the prompts ask to enter the initialization filenames for Amica and Octave, you may simply use the defaults by hitting **Enter** after each prompt.
-
 ## Staging Script
 
-**NOTE:** The staging script is meant to add marks to each data file before they are processed by scalpart and the following pipeline scripts. It is called at the very beginning of the s01_scalpart script. It may be used to mark time periods that are out of task, so that they aren't considered by Amica in order to create a cleaner ICA decomposition. Other flagging criteria may also be added into this script, such as study-wide criteria, in addition to the single-file criteria used by the rest of the pipeline. This script may also include filtering and other pre-processing functions that stage the dataset before it is processed by the pipeline, and is essentially meant to normalize all the datasets with each other so that a statistically viable comparison can later be made.
+> ## Note
+> The staging script is meant to add marks to each data file before they are processed by scalpart and the following pipeline scripts. It is called at the very beginning of the s01_scalpart script. It may be used to mark time periods that are out of task, so that they aren't considered by Amica in order to create a cleaner ICA decomposition. Other flagging criteria may also be added into this script, such as study-wide criteria, in addition to the single-file criteria used by the rest of the pipeline. This script may also include filtering and other pre-processing functions that stage the dataset before it is processed by the pipeline, and is essentially meant to normalize all the datasets with each other so that a statistically viable comparison can later be made.
+>
+> {: .source}
+{: .callout}
 
 1. Write a staging script to add time marks for out-of-task time and in-task time, as well as any other study-wide criteria, warping to the standard montage, filtering, and other possible procedures to normalize the dataset before proceeding through the pipeline. A sample staging script has been written for the face_13 dataset (`face13_staging.m`), and is already located in the `derivatives/lossless/code/scripts/` folder. If you need to write a new staging script, you can name it `staging_script.m` and save it in the **local** `derivatives/lossless/code/scripts/` folder. 
 
@@ -111,7 +113,7 @@ keypoints:
 
 ## Copy files from local to remote
 
-1. In a terminal window opened to your **local** drives (**NOT** a terminal logged into Graham), navigate to your **local** project directory:
+1. In a terminal window opened to your **local** drives, navigate to your **local** project directory:
 
     ```bash
     >> cd path/to/project/directory/face_13/
@@ -148,7 +150,11 @@ keypoints:
 
 4. In the EEGLAB drop-down menu, navigate to **File->Batch->Batch Configuration** and click **Get batch config file names** to load the default batch configuration file(s) that can then be modified and saved. The default pipeline configuration files are located in `derivatives/lossless/code/config/remote_sbatch/`, and they are the files that begin with a ‘c’ (c01-c05). The configuration files we want to select for the face_13 data are in the face13_sbatch folder. Once the files have been selected, click **Clear/Load** to load the files into the property grid.
 
-**NOTE:** For most new projects, you might need to adjust some of the parameters here for running the pipeline. For the face_13 data, you can leave the config files as they are, except change the submit_options field in each config file to `--account=[group_name]`, where [group_name] is the name of your group on Graham. The most common changes for most other projects would be adjusting the memory and time_limit properties to optimize job runtimes. Once you are satisfied with all the parameters, you may click **Save as** to save each of the files with their new parameters, so that they can easily be loaded for future use. For more info, see the Batch Context wiki about [Batch configuration files](https://github.com/BUCANL/Batch-Context/wiki/Batch-Configuration-Files). 
+> ## Note
+> For most new projects, you might need to adjust some of the parameters here for running the pipeline. For the face_13 data, you can leave the config files as they are, except change the submit_options field in each config file to `--account=[group_name]`, where [group_name] is the name of your group on Graham. The most common changes for most other projects would be adjusting the memory and time_limit properties to optimize job runtimes. Once you are satisfied with all the parameters, you may click **Save as** to save each of the files with their new parameters, so that they can easily be loaded for future use. For more info, see the Batch Context wiki about [Batch configuration files](https://github.com/BUCANL/Batch-Context/wiki/Batch-Configuration-Files). 
+>
+> {: .source}
+{: .callout}
 
    ![Batch Config Window]({{ page.root }}/fig/batchconfig.png)
 
