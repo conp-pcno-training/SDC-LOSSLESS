@@ -153,7 +153,7 @@ keypoints:
    ![Batch Config Window]({{ page.root }}/fig/batchconfig.png)
 
 > ## Note 
-> For most new projects, you might need to adjust some of the parameters here for running the pipeline. For the face_13 data, you can leave the config files as they are, except change the `submit_options` field in each config file to `--account=[group_name]`, where [group_name] is the name of your group on Graham. The most common changes for most other projects would be adjusting the memory and time_limit properties to optimize job runtimes. Once you are satisfied with all the parameters, you may click `| Save as |` to save each of the files with their new parameters, so that they can easily be loaded for future use. For more info, see the Batch Context wiki about [Batch configuration files](https://github.com/BUCANL/Batch-Context/wiki/Batch-Configuration-Files). 
+> For most new projects, you might need to adjust some of the parameters here for running the pipeline. For the face_13 data, you can leave the config files as they are, except change the `submit_options` field in each config file to `--account=[group_name]`, where [group_name] is the name of your group on Graham. The most common changes for most other projects would be adjusting the `memory` and `time_limit` properties to optimize job runtimes. Once you are satisfied with all the parameters, you may click `| Save as |` to save each of the files with their new parameters, so that they can easily be loaded for future use. For more info, see the Batch Context wiki about [Batch configuration files](https://github.com/BUCANL/Batch-Context/wiki/Batch-Configuration-Files). 
 >
 > {: .source}
 {: .callout}
@@ -180,7 +180,7 @@ keypoints:
     >> find sub-* -type f -name "*_eeg.set"
     ```
 
-7. This will print a list of all your initialized `*.set` files, including the path, which you can then copy straight from the terminal into the **file** field in the Run history template batch window, with one path/filename per line.
+7. This will print a list of all your initialized `*.set` files, including the path, which you can then copy straight from the terminal into the **file** field in the Run history template batch window, with one path/filename per line. An easier method is to simply click the `| Bids import |` button, and click `| Ok |` right awayfrom the root pipeline directory. This will automatically populate the list with all the `*_eeg.set` files present in your BIDS folder structure.
 
 8. Finally, in the drop down menu at the bottom of the Run history template batch window, select the **ssh2** option, to avoid having to enter your password several times upon job submission.
 
