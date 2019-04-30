@@ -87,7 +87,7 @@ keypoints:
     >> cd face_13/code/
     ```
 
-2. In case the setup-remote.sh script in this folder is not executable, run the following line in the bash terminal:
+2. In case the `setup-remote.sh` script in this folder is not executable, run the following line in the bash terminal:
 
     ```bash
     >> chmod +x setup-remote.sh
@@ -102,7 +102,7 @@ keypoints:
 ## Staging Script
 
 > ## Note 
-> The staging script is meant to add marks to each data file before they are processed by scalpart and the following pipeline scripts. It is called at the very beginning of the s01_scalpart script. It may be used to mark time periods that are out of task, so that they aren't considered by Amica in order to create a cleaner ICA decomposition. Other flagging criteria may also be added into this script, such as study-wide criteria, in addition to the single-file criteria used by the rest of the pipeline. This script may also include filtering and other pre-processing functions that stage the dataset before it is processed by the pipeline, and is essentially meant to normalize all the datasets with each other so that a statistically viable comparison can later be made.
+> The staging script is meant to add marks to each data file before they are processed by scalpart and the following pipeline scripts. It is called at the very beginning of the `s01_scalpart.htb` script. It may be used to mark time periods that are out of task, so that they aren't considered by Amica in order to create a cleaner ICA decomposition. Other flagging criteria may also be added into this script, such as study-wide criteria, in addition to the single-file criteria used by the rest of the pipeline. This script may also include filtering and other pre-processing functions that stage the dataset before it is processed by the pipeline, and is essentially meant to normalize all the datasets with each other so that a statistically viable comparison can later be made.
 >
 > {: .source}
 {: .callout}
@@ -153,7 +153,7 @@ keypoints:
    ![Batch Config Window]({{ page.root }}/fig/batchconfig.png)
 
 > ## Note 
-> For most new projects, you might need to adjust some of the parameters here for running the pipeline. For the face_13 data, you can leave the config files as they are, except change the submit_options field in each config file to `--account=[group_name]`, where [group_name] is the name of your group on Graham. The most common changes for most other projects would be adjusting the memory and time_limit properties to optimize job runtimes. Once you are satisfied with all the parameters, you may click `| Save as |` to save each of the files with their new parameters, so that they can easily be loaded for future use. For more info, see the Batch Context wiki about [Batch configuration files](https://github.com/BUCANL/Batch-Context/wiki/Batch-Configuration-Files). 
+> For most new projects, you might need to adjust some of the parameters here for running the pipeline. For the face_13 data, you can leave the config files as they are, except change the `submit_options` field in each config file to `--account=[group_name]`, where [group_name] is the name of your group on Graham. The most common changes for most other projects would be adjusting the memory and time_limit properties to optimize job runtimes. Once you are satisfied with all the parameters, you may click `| Save as |` to save each of the files with their new parameters, so that they can easily be loaded for future use. For more info, see the Batch Context wiki about [Batch configuration files](https://github.com/BUCANL/Batch-Context/wiki/Batch-Configuration-Files). 
 >
 > {: .source}
 {: .callout}
@@ -190,7 +190,7 @@ keypoints:
 
 ## Query running jobs
 
-1. To check the status of your submitted jobs, you need to log into Graham again:
+1. To check the status of your submitted jobs, go to a terminal window logged into Graham if you're still logged in or log back into Graham again:
 
     ```bash
     >> ssh [user_name]@graham.computecanada.ca
@@ -203,6 +203,7 @@ keypoints:
     ```
 
 3. To check if any particular file succeeded or failed running during a particular script, you may check the corresponding `*.log` file in the `derivatives/lossless/log/` folder. A stack trace of any error will be printed here. This file can be accessed using an in-terminal text editor such as Vim:
+
 
     ```bash
     >> vi derivatives/lossless/log/
@@ -230,7 +231,7 @@ keypoints:
     >> rsync -rthvv --prune-empty-dirs --progress --include="*_ll*" --include="*/" --exclude="*" --exclude=”/*/*/*/*/” [user_name]@gra-dtn1.computecanada.ca:/home/[user_name]/projects/[group_name]/[user_name]/face_13/derivatives/lossless/sub-* derivatives/lossless/
     ```
 
-5. Once this procedure is completed, you should notice all the `*_ll.set` and `*_ll.fdt` files in your **local** `derivatives/lossless/` directory. These files can now be put through the manual QC procedure for further processing.
+5. Once this procedure is completed, you should notice all the `*_ll.set` and `*_ll.fdt` files in your **local** `derivatives/lossless/` directory. These files can now be put through the [manual QC procedure](https://bucanl.github.io/SDC-LOSSLESS-QC/index.html) for further processing.
 
 
 {% include links.md %}
