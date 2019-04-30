@@ -36,21 +36,21 @@ keypoints:
     >> git clone --recursive https://git.sharcnet.ca/bucanl_pipelines/bids_lossless_eeg.git
     ```
 
-4. Optional: Rename the pipeline directory to your desired project name (we will call it face_13 here):
+4. Optional: Rename the pipeline directory to your desired project name (we will call it `face_13` here):
 
     ```bash
     >> mv bids_lossless_eeg face_13/
     ```
 
-5. Move the `sub-*` folders and files that you downloaded during the Setup procedure into the root face_13 directory. You may also simply use the entire directory that you downloaded during the setup procedure. It should be identical to the lossless pipeline you just cloned.
+5. Move the `sub-*` folders and files that you downloaded during the Setup procedure into the root `face_13` directory. You may also simply use the entire directory that you downloaded during the setup procedure. It should be identical to the lossless pipeline you just cloned.
 
 #### **Windows users**
 
 1. Go to the [bids_lossless_eeg][bids_lossless_eeg] Gitlab repository, click the **Download ZIP** icon, and extract the contents into a desired location on your local drive.
 
-2. Optional: Rename the pipeline directory to your desired project name (we will call it face_13 here).
+2. Optional: Rename the pipeline directory to your desired project name (we will call it `face_13` here).
 
-3. Move the `sub-*` folders and files that you downloaded during the Setup procedure into the root face_13 directory. You may also simply use the entire directory that you downloaded during the setup procedure. It should be identical to the lossless pipeline you just cloned.
+3. Move the `sub-*` folders and files that you downloaded during the Setup procedure into the root `face_13` directory. You may also simply use the entire directory that you downloaded during the setup procedure. It should be identical to the lossless pipeline you just cloned.
 
 
 ## Download/Setup the pipeline (remote)
@@ -73,7 +73,7 @@ keypoints:
     >> git clone --recursive https://git.sharcnet.ca/bucanl_pipelines/bids_lossless_eeg.git
     ```
 
-4. Optional: Rename the pipeline directory to your desired project name (we will call it face_13 here):
+4. Optional: Rename the pipeline directory to your desired project name (we will call it `face_13` here):
 
     ```bash
     >> mv bids_lossless_eeg face_13
@@ -96,7 +96,7 @@ keypoints:
 3. Now, you can run the script by simply typing the following line into the terminal, and following the on-screen instructions.
 
     ```bash
-    >> ./setup-remote.sh`
+    >> ./setup-remote.sh
     ```
 
 ## Staging Script
@@ -143,31 +143,30 @@ keypoints:
     >> eeglab
     ```
 
-3. In the EEGLAB drop-down menu, navigate to **File->Batch->Context Configuration** and click **Load context config** to load a default configuration file that can then be modified and saved. Here, you will need to fill out the appropriate fields under Remote Locations, which will correspond to the remote paths for the project. For more info, see the Batch Context wiki about [Context configuration files](https://github.com/BUCANL/Batch-Context/wiki/Context-Configuration-Files).
+3. In the EEGLAB drop-down menu, navigate to **File->Batch->Context Configuration** and click `| Load context config |` to load a default configuration file that can then be modified and saved. Here, you will need to fill out the appropriate fields under Remote Locations, which will correspond to the remote paths for the project. For more info, see the Batch Context wiki about [Context configuration files](https://github.com/BUCANL/Batch-Context/wiki/Context-Configuration-Files).
 
    ![Context Config Window]({{ page.root }}/fig/contextconfig.png)
 
 
-4. In the EEGLAB drop-down menu, navigate to **File->Batch->Batch Configuration** and click **Get batch config file names** to load the default batch configuration file(s) that can then be modified and saved. The default pipeline configuration files are located in `derivatives/lossless/code/config/remote_sbatch/`, and they are the files that begin with a ‘c’ (c01-c05). The configuration files we want to select for the face_13 data are in the face13_sbatch folder. Once the files have been selected, click **Clear/Load** to load the files into the property grid.
-
-> ## Note 
-> For most new projects, you might need to adjust some of the parameters here for running the pipeline. For the face_13 data, you can leave the config files as they are, except change the submit_options field in each config file to `--account=[group_name]`, where [group_name] is the name of your group on Graham. The most common changes for most other projects would be adjusting the memory and time_limit properties to optimize job runtimes. Once you are satisfied with all the parameters, you may click **Save as** to save each of the files with their new parameters, so that they can easily be loaded for future use. For more info, see the Batch Context wiki about [Batch configuration files](https://github.com/BUCANL/Batch-Context/wiki/Batch-Configuration-Files). 
->
-> {: .source}
-{: .callout}
+4. In the EEGLAB drop-down menu, navigate to **File->Batch->Batch Configuration** and click `| Get batch config file names |` to load the default batch configuration file(s) that can then be modified and saved. The default pipeline configuration files are located in `derivatives/lossless/code/config/remote_sbatch/`, and they are the files that begin with a ‘c’ (c01-c05). The configuration files we want to select for the face_13 data are in the `face13_sbatch` folder. Once the files have been selected, click `| Clear/Load |` to load the files into the property grid.
 
    ![Batch Config Window]({{ page.root }}/fig/batchconfig.png)
 
+> ## Note 
+> For most new projects, you might need to adjust some of the parameters here for running the pipeline. For the face_13 data, you can leave the config files as they are, except change the submit_options field in each config file to `--account=[group_name]`, where [group_name] is the name of your group on Graham. The most common changes for most other projects would be adjusting the memory and time_limit properties to optimize job runtimes. Once you are satisfied with all the parameters, you may click `| Save as |` to save each of the files with their new parameters, so that they can easily be loaded for future use. For more info, see the Batch Context wiki about [Batch configuration files](https://github.com/BUCANL/Batch-Context/wiki/Batch-Configuration-Files). 
+>
+> {: .source}
+{: .callout}
 
 ## Submit jobs
 
 1. In the EEGLAB drop-down menu, navigate to **File->Batch->Run history template batch**.
 
-2. If your context configuration file is not already loaded, click **Load context config** and load the context configuration file you saved in step 3 above.
+2. If your context configuration file is not already loaded, click `| Load context config |` and load the context configuration file you saved in step 3 above.
 
-3. If you batch configuration files are not already loaded, click **Load batch config** and load all the batch configuration files from step 4 above.
+3. If you batch configuration files are not already loaded, click `| Load batch config |` and load all the batch configuration files from step 4 above.
 
-4. Click **History file** and load all the scripts (s01-s05) corresponding to each of the batch configuration files (c01-c05). These scripts are located in the `derivatives/lossless/code/scripts/` directory.
+4. Click `| History file |` and load all the scripts (s01-s05) corresponding to each of the batch configuration files (c01-c05). These scripts are located in the `derivatives/lossless/code/scripts/` directory.
 
 5. Open up a terminal window, and navigate to your local project directory again:
 
@@ -185,7 +184,7 @@ keypoints:
 
 8. Finally, in the drop down menu at the bottom of the Run history template batch window, select the **ssh2** option, to avoid having to enter your password several times upon job submission.
 
-9. Click **Ok** and type your Graham password into the window that appears. Your jobs should now start submitting for each data file, sequentially, one script at a time.
+9. Click `| Ok |` and type your Graham password into the window that appears. Your jobs should now start submitting for each data file, sequentially, one script at a time.
 
    ![Run History Template Batch Window]({{ page.root }}/fig/runhtb_lossless.png)
 
