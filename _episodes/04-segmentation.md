@@ -53,9 +53,15 @@ EEG = warp_locs(EEG,'derivatives/lossless/code/misc/standard_1020_bucanl19.elc',
 
 Notice, we set the **'manual'** argument to **'on'**, as this will create a popup window that will make it easy to see the current state of the montage plotted against the montage we want to interpolate to. The goal is to make these two montages sit on the same surface. We can do this by adjusting the parameters of the transformation matrix. Each of the nine values represents the following types of transformation: [shiftX, shiftY, shiftZ, pitch, roll, yaw, scaleX, scaleY, scaleZ].  
 
-We can use the `| Warp Montage |` button, which uses known electrode correspondences between the two montages to determine the optimal transformation matrix. You may need to pair these electrodes manually depending on the montages. EEGLAB will pair them automatically if you are interpolating back to the original montage, but if you are interpolating to a different montage than the original (such as the standard 10/20 system), you will likely need to to pair the electrodes yourself. You can also use the `| Align figucials |` option if there are corresponding fiducials present in both montages.  
+We can use the `| Warp Montage |` button, which uses known electrode correspondences between the two montages to determine the optimal transformation matrix. You may need to pair these electrodes manually depending on the montages. EEGLAB will pair them automatically if you are interpolating back to the original montage, but if you are interpolating to a different montage than the original (such as the standard 10/20 system), you will likely need to to pair the electrodes yourself. You can also use the `| Align fiducials |` option if there are corresponding fiducials present in both montages.  
 
 ![Warp Montage]({{ page.root }}/fig/warpmont_biosemi.png "Warp Montage from 128-channel Biosemi to 10/20")
+
+> ## Note
+> Because this step occurs after purging, some channels from the original montage will likely be missing. If some of the missing electrodes are one of the electrodes that correspond with an electrode on the new montage, it is okay not to pair it. As long as at least four or more electrode pairs are available, the transformation matrix will be fairly accurate. One strategy for finding the ideal transformation matrix would be to run the `warp_locs()` function on a file that hasn't been purged yet so that it still includes all the electrodes. this should result in the most accurate estimate of the transformation matrix, which you can then use on all subsequent files with some of their electrodes missing.
+>
+> {: .source}
+{: .callout}
 
 Once you click `| Ok |`, you should notice that the values of the transformation matrix have changed and both montages are now sitting more or less on the same surface. You can make slight adjustments to any of the nine transformation values if you still think the coregistration could have worked a little bit better, but the automatically calculated transformation matrix should be sufficient. Once you have these values, for all subsequent files with the same original montage you may change the **'transform'** values in the `warp_locs()` function to the new automatically calculated values, and switch **'manual'** back to **'off'** so that the popup window doesn't appear anymore:
 
@@ -88,7 +94,7 @@ Depending on the montage file you are using, it may have the first few electrode
 
 ## Segment the data
 
-Once the interpolation has been done, we can finally epoch the remaining data. For task-based paradigms (as opposed to resting paradigms), we will time-lock to specific events and create segments of a desired length of time around these events. For resting paradigms, we would simply create segments at regular intervals in order to do perform spectral analyses later. In this tutorial we will only focus on segmenting task-based paradigms. As an example, we will segment our files to be 1000ms, from -200ms to 800ms before and after the event marker for a particular condition, using the first 200ms as a baseline for baseline correction.
+Once the interpolation has been done, we can finally epoch the remaining data. For task-based paradigms (as opposed to resting paradigms), we will time-lock to specific events and create segments of a desired length of time around these events. For resting paradigms, we would simply create segments at regular intervals in order to do perform spectral analyses later. In this tutorial we will only focus on segmenting task-based paradigms. As an example, we will segment our files to be 5000ms, from -2000ms to 3000ms before and after the event marker for a particular condition, using the first 200ms as a baseline for baseline correction.
 
 Considering we will likely want to create a separate segmented file for each condition, we first want to store the original EEG structure in a temporary variable:
 
@@ -99,15 +105,25 @@ tmpEEG = EEG;
 Next, we will want to create a separate segmented file for each condition by identifying the event markers to time-lock to and creating epochs around them. Then, a baseline correction is performed between -200ms and 0ms, and the new segmented file is saved with a new name:
 
 ```matlab
-%% segment face condition
-EEG = pop_epoch(tmpEEG,{'face_inverted' 'face_upright'},[-.2 .8],'newname','face', 'epochinfo', 'yes');
-EEG = pop_rmbase(EEG,[-200 0]);
-EEG = pop_saveset(EEG, 'filename',['[batch_dfn,_,-1]_face_seg.set']);
+% face-inverted...
+EEG = pop_epoch(tmpEEG, {'face-inverted'}, [-2 3], 'newname', 'faci', 'epochinfo', 'yes');
+EEG = pop_rmbase( EEG, [-200 0]);
+EEG = pop_saveset(EEG, 'filename',['[batch_dfn,_,-1]_faci.set'],'filepath','[batch_dfp]');
 
-%% segment house condition
-EEG = pop_epoch(tmpEEG,{'house_inverted' 'house_upright'},[-.2 .8],'newname','house', 'epochinfo', 'yes');
-EEG = pop_rmbase(EEG,[-200 0]);
-EEG = pop_saveset(EEG, 'filename',['[batch_dfn,_,-1]_house_seg.set']);
+% face-upright...
+EEG = pop_epoch(tmpEEG, {'face-upright'}, [-2 3], 'newname', 'facu', 'epochinfo', 'yes');
+EEG = pop_rmbase( EEG, [-200 0]);
+EEG = pop_saveset(EEG, 'filename',['[batch_dfn,_,-1]_facu.set'],'filepath','[batch_dfp]');
+
+% house-inverted...
+EEG = pop_epoch(tmpEEG, {'house-inverted'}, [-2 3], 'newname', 'housi', 'epochinfo', 'yes');
+EEG = pop_rmbase( EEG, [-200 0]);
+EEG = pop_saveset(EEG, 'filename',['[batch_dfn,_,-1]_housi.set'],'filepath','[batch_dfp]');
+
+% house-upright...
+EEG = pop_epoch(tmpEEG, {'house-upright'}, [-2 3], 'newname', 'housu', 'epochinfo', 'yes');
+EEG = pop_rmbase( EEG, [-200 0]);
+EEG = pop_saveset(EEG, 'filename',['[batch_dfn,_,-1]_housu.set'],'filepath','[batch_dfp]');
 ```
 
 > ## Note
@@ -118,6 +134,6 @@ EEG = pop_saveset(EEG, 'filename',['[batch_dfn,_,-1]_house_seg.set']);
 
 Now that the data files have been segmented, you might notice that the EEG.data structure has three dimensions instead of two. the first dimension is for number of channels and the second is for number of time points, just as before. The new third dimension is for number of trials (i.e. epochs).  they can be used to generate ERPs or to perform other kinds of analyses. You'll also notice that the second dimension representing the number of time points is signficantly smaller because it is not representing the number of time points within the original file anymore, but the number of time points within each epoch.
 
-The segmented files are now in a state that allows us to generate ERPs and perform other types of analyses.
+The segmented files are now in a state that allows us to generate ERPs and perform other types of analyses. [Here]({{ page.root }}/files/seg_face_house.htb) is a sample segmentation `*.htb` script based on the code above.
 
 {% include links.md %}

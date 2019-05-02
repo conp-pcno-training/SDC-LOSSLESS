@@ -1,0 +1,74 @@
+% Load the set file
+EEG = pop_loadset('filename','[batch_dfn]','filepath','[batch_dfp]');
+EEG = eeg_checkset( EEG );
+
+%Collect STUDY information...
+subj=EEG.filename(6:7);
+
+% Removed flagged channels and time segments
+sprintf('%s','Purging flagged channels...\n');
+EEG = pop_marks_select_data(EEG,'channel marks',[],'labels',{'manual'},'remove','on');
+EEG = pop_marks_select_data(EEG,'time marks',[],'labels',{'manual'},'remove','on');
+EEG = pop_marks_select_data(EEG,'component marks',[],'labels',{'manual'},'remove','on');
+
+%purge unnecessary fields...
+for i=1:length(EEG.marks.time_info);
+    EEG.marks.time_info(i).flags=[];
+end
+EEG.data_sd_t=[];
+EEG.c_data_sd_t=[];
+EEG.data_sd_ch=[];
+EEG.c_data_sd_ch=[];
+EEG.data_r_ch=[];
+EEG.c_data_r_ch=[];
+EEG.data_r_t=[];
+EEG.c_data_r_t=[];
+EEG.amica=[];
+EEG.icaact_sd1_t=[];
+EEG.c_icaact_sd_t=[];
+EEG.icaact_sd2_t=[];
+EEG.c_icaact_sd2_t=[];
+EEG.icaact_ta_t=[];
+EEG.c_icaact_ta_t=[];
+EEG.icaact_b_t=[];
+EEG.c_icaact_b_t=[];
+    
+EEG = eeg_checkset(EEG);
+
+tmpEEG=EEG;
+
+%face-inverted...
+EEG = pop_epoch( tmpEEG, {'face-inverted'}, [-2 3], 'newname', 'faci', 'epochinfo', 'yes');
+EEG = pop_rmbase( EEG, [-200 0]);
+EEG.subject=subj;
+EEG.group='inv';
+EEG.condition='face';
+EEG.session=01;
+EEG = pop_saveset(EEG, 'filename',['[batch_dfn,_,-1]_faci.set'],'filepath','[batch_dfp]');
+
+%face-upright...
+EEG = pop_epoch( tmpEEG, {'face-upright'}, [-2 3], 'newname', 'facu', 'epochinfo', 'yes');
+EEG = pop_rmbase( EEG, [-200 0]);
+EEG.subject=subj;
+EEG.group='up';
+EEG.condition='face';
+EEG.session=01;
+EEG = pop_saveset(EEG, 'filename',['[batch_dfn,_,-1]_facu.set'],'filepath','[batch_dfp]');
+
+%house-inverted...
+EEG = pop_epoch( tmpEEG, {'house-inverted'}, [-2 3], 'newname', 'housi', 'epochinfo', 'yes');
+EEG = pop_rmbase( EEG, [-200 0]);
+EEG.subject=subj;
+EEG.group='inv';
+EEG.condition='house';
+EEG.session=01;
+EEG = pop_saveset(EEG, 'filename',['[batch_dfn,_,-1]_housi.set'],'filepath','[batch_dfp]');
+
+%house-upright...
+EEG = pop_epoch( tmpEEG, {'house-upright'}, [-2 3], 'newname', 'housu', 'epochinfo', 'yes');
+EEG = pop_rmbase( EEG, [-200 0]);
+EEG.subject=subj;
+EEG.group='up';
+EEG.condition='house';
+EEG.session=01;
+EEG = pop_saveset(EEG, 'filename',['[batch_dfn,_,-1]_housu.set'],'filepath','[batch_dfp]');

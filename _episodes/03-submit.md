@@ -143,10 +143,15 @@ keypoints:
     >> eeglab
     ```
 
-3. In the EEGLAB drop-down menu, navigate to **File->Batch->Context Configuration** and click `| Load context config |` to load a default configuration file that can then be modified and saved. Here, you will need to fill out the appropriate fields under Remote Locations, which will correspond to the remote paths for the project. For more info, see the Batch Context wiki about [Context configuration files](https://github.com/BUCANL/Batch-Context/wiki/Context-Configuration-Files).
+3. In the EEGLAB drop-down menu, navigate to **File->Batch->Context Configuration** and click `| Load context config |` to load a default configuration file that can then be modified and saved. 
+
+> ## Note
+> Here, you will need to fill out the appropriate fields under Remote Locations, which will correspond to the remote paths for the project. For example, you would change the `remote_user_name` field to your user name on the remote system. The `remote_exec_host` field is the host and domain of the remote system. The `remote_project_archive` field is the remote path to the location of the archived root project directory (the main folder of the lossless pipeline) where you would like to archive your project folder. Finally, the `remote_project_work` directory is the remote path to the location of the work root project directory, where the actual jobs will be run, and the `remote dependency` is the same as the `remote_project_work` directory, but a few levels deeper (`derivatives/lossless/code/dependencies/`). For more info, see the Batch Context wiki about [Context configuration files](https://github.com/BUCANL/Batch-Context/wiki/Context-Configuration-Files).
+>
+> {: .source}
+{: .callout}
 
    ![Context Config Window]({{ page.root }}/fig/contextconfig.png)
-
 
 4. In the EEGLAB drop-down menu, navigate to **File->Batch->Batch Configuration** and click `| Get batch config file names |` to load the default batch configuration file(s) that can then be modified and saved. The default pipeline configuration files are located in `derivatives/lossless/code/config/remote_sbatch/`, and they are the files that begin with a ‘c’ (c01-c05). The configuration files we want to select for the face_13 data are in the `face13_sbatch` folder. Once the files have been selected, click `| Clear/Load |` to load the files into the property grid.
 
