@@ -11,7 +11,7 @@ keypoints:
 - "First key point. Brief Answer to questions. (FIXME)"
 ---
 
-This section is designed to outline the key procedures of each of the [Lossless pipeline scripts](https://git.sharcnet.ca/bucanl_pipelines/bids_lossless_eeg/wikis/pipeline-scripts).
+This section is designed to outline the key procedures of each of the [Lossless pipeline scripts](https://github.com/BUCANL/BIDS-Lossless-EEG/wiki/Pipeline-Scripts).
 
 ### Scalpart (s01)
 
