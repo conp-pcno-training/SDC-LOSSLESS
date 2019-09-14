@@ -92,7 +92,7 @@ keypoints:
 
 2. Run the remote setup script and follow the on screen prompts:
 
-    ``bash
+    ```bash
     >> bash derivatives/BIDS-Lossless-EEG/code/install/setup-remote.sh
     ```
 
