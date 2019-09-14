@@ -1,5 +1,5 @@
 ---
-title: "Running the Lossless Pipeline"
+title: "Downloading the Lossless Pipeline"
 teaching: 35
 exercises: 10
 questions:
