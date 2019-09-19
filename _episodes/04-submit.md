@@ -9,7 +9,7 @@ objectives:
 - "Submitting a batch of EEG files to run remotely through the Lossless pipeline."
 keypoints:
 - "Ensure you have all the pipeline files and your data files on both the **local** and **remote** machine."
-- "The input file for the Lossless pipeline is `*_eeg.set` and the output file is `*_ll.set`."
+- "The input file for the Lossless pipeline is `*_eeg.edf` and the output file is `*_ll.set`."
 - "Remember to always pay attention to whether you are running a BASH command on your **local** machine versus the **remote** computer cluster."
 ---
 
@@ -18,13 +18,13 @@ keypoints:
 1. In a terminal window opened to your **local** drives, navigate to your **local** project directory:
 
     ```bash
-    >> cd path/to/project/directory/Face_13/
+    >> cd path/to/project/directory/Face13/
     ```
 
-2. Copy the **local** `*.set` and `*.fdt` files to the **remote** computer cluster, leaving these files in the BIDS folder structure (`sub-*/ses-*/eeg/`). Again, replace [user_name] with your own username, and [group_name] with the name of your group:
+2. Copy the **local** `*.edf` files to the **remote** computer cluster, leaving these files in the BIDS standard (`sub-*/eeg/`). Again, replace [user_name] with your own username and [project_name] with 'Face13':
 
     ```bash
-    >> rsync -rthvv --prune-empty-dirs --progress --include="*_eeg.*" --include="*/" --exclude="*" --exclude="/*/*/*/*/" sub-* [user_name]@gra-dtn1.computecanada.ca:/home/[user_name]/projects/[group_name]/[user_name]/Face_13/
+    >> rsync -rthvv --prune-empty-dirs --progress --include="*sub*" --include="*/" --exclude="*" --exclude="/*/*/*/*/" sub-* [user_name]@gra-dtn1.computecanada.ca:/home/[user_name]/scratch/[project_name]/
     ```
 
 ## Configuration file setup
@@ -39,7 +39,7 @@ keypoints:
     >> eeglab
     ```
 
-3. In the EEGLAB drop-down menu, navigate to **File->Batch->Context Configuration** and click `| Load context config |` to load a default configuration file that can then be modified and saved. 
+3. In the EEGLAB drop-down menu, navigate to **File->Batch->Context Configuration** and click `| Load context config |` to load a default configuration file that can then be modified and saved. The default configuration file is named `contextconfig.cfg` and is located in the `derivatives/BIDS-Lossless-EEG/code/config/` directory.
 
 > ## Note
 > Here, you will need to fill out the appropriate fields under Remote Locations, which will correspond to the remote paths for the project. For example, you would change the `remote_user_name` field to your user name on the remote system. The `remote_exec_host` field is the host and domain of the remote system. The `remote_project_archive` field is the remote path to the location of the archived root project directory (the main folder of the lossless pipeline) where you would like to archive your project folder. Finally, the `remote_project_work` directory is the remote path to the location of the work root project directory, where the actual jobs will be run, and the `remote dependency` is the same as the `remote_project_work` directory, but a few levels deeper (`derivatives/BIDS-Lossless-EEG/code/dependencies/`). For more info, see the Batch Context wiki about [Context configuration files](https://github.com/BUCANL/Batch-Context/wiki/Context-Configuration-Files).
@@ -49,11 +49,11 @@ keypoints:
 
    ![Context Config Window]({{ page.root }}/fig/contextconfig.png)
 
-4. In the EEGLAB drop-down menu, navigate to **File->Batch->Batch Configuration** and click `| Get batch config file names |` to load the default batch configuration file(s) that can then be modified and saved. The configuration files we want to select for the Face_13 data are in the `derivatives/BIDS-Lossless-EEG/code/config/face13_sbatch` folder. You want to select the seven files that are named 'c01-c05'. Once the files have been selected, click `| Clear/Load |` to load the files into the property grid.
+4. In the EEGLAB drop-down menu, navigate to **File->Batch->Batch Configuration** and click `| Get batch config file names |` to load the default batch configuration file(s) that can then be modified and saved. The configuration files we want to select for the Face13 data are in the `derivatives/BIDS-Lossless-EEG/code/config/face13_sbatch` folder. You want to select the seven files that are named 'c01-c05'. Once the files have been selected, click `| Clear/Load |` to load the files into the property grid.
 
    ![Batch Config Window]({{ page.root }}/fig/batchconfig.png)
 
-5. Change the `submit_options` field in each batch configuration file to `--account=[group_name]`, where [group_name] is the name of your group on Graham. The rest of the parameters in batch configuration files are optimized for the Face_13 tutorial dataset.
+5. Change the `submit_options` field in each batch configuration file to `--account=[group_name]`, where [group_name] is the name of your group on Graham. The rest of the parameters in batch configuration files are optimized for the Face13 tutorial dataset.
 
 6. Once you are done editing the parameters, you can click `|Save as|` and select all of the files to save each of the files with their new parameters.
 
@@ -76,16 +76,16 @@ keypoints:
 5. Open up a terminal window, and navigate to your local project directory again:
 
     ```bash
-    >> cd path/to/project/directory/Face_13/
+    >> cd path/to/project/directory/Face13/
     ```
 
 6. List all the data files you’d like to run through the pipeline. This can be done using the find command by typing:
 
     ```bash
-    >> find sub-* -type f -name "*_eeg.set"
+    >> find sub-* -type f -name "*_eeg.edf"
     ```
 
-7. This will print a list of all your initialized `*.set` files, including the path, which you can then copy straight from the terminal into the **file** field in the Run history template batch window, with one path/filename per line. An easier method is to simply click the `| Bids import |` button, and click `| Ok |` right away from the root pipeline directory. This will automatically populate the list with all the `*_eeg.set` files present in your BIDS folder structure.
+7. This will print a list of all your initialized `*.edf` files, including the path, which you can then copy straight from the terminal into the **file** field in the Run history template batch window, with one path/filename per line. 
 
 8. Click `| Ok |` and type your Graham password in the command window when prompted. You will have to enter your password several times. Your jobs should now start submitting for each data file, sequentially, one script at a time.
 
@@ -125,13 +125,13 @@ keypoints:
 3. Now, you may copy these output files back to your **local** project directory. Make sure you are currently in your **local** project directory, if you aren’t already:
 
     ```bash
-    >> cd path/to/project/directory/Face_13/
+    >> cd path/to/project/directory/Face13/
     ```
 
-4. Now, transfer the files using the following command in the terminal:
+4. Now, transfer the files using the following command in the terminal, replacing [user_name] with your own username and [project_name] with 'Face13':
 
     ```bash
-    >> rsync -rthvv --prune-empty-dirs --progress --include="*_ll*" --include="*/" --exclude="*" --exclude=”/*/*/*/*/” [user_name]@gra-dtn1.computecanada.ca:/home/[user_name]/projects/[group_name]/[user_name]/Face_13/derivatives/BIDS-Lossless-EEG/sub-* derivatives/BIDS-Lossless-EEG/
+    >> rsync -rthvv --prune-empty-dirs --progress --include="*.edf" --include="*icaweights.*" --include="*icasphere.*" --include="*_annotations*" --include="*/" --exclude="*" --exclude=”/*/*/*/*/” [user_name]@gra-dtn1.computecanada.ca:/scratch/[user_name]/[project_name]/derivatives/BIDS-Lossless-EEG/sub-* derivatives/BIDS-Lossless-EEG/
     ```
 
 5. Once this procedure is completed, you should notice all the `*_ll.set` and `*_ll.fdt` files in your **local** `derivatives/BIDS-Lossless-EEG/` directory. These files can now be put through the [manual QC procedure](https://bucanl.github.io/SDC-LOSSLESS-QC/index.html) for further processing.

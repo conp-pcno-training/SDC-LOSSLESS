@@ -20,10 +20,10 @@ keypoints:
     >> sudo apt-get install git
     ```
 
-2. In the terminal, navigate to the root of your project (this will be the Face_13 folder):
+2. In the terminal, navigate to the root of your project (this will be the Face13 folder):
 
     ```bash
-    >> cd path/to/project/directory/Face_13
+    >> cd path/to/project/directory/Face13
     ```
 
 3. If there is not already a derivatives folder within your project folder, create a derivatives folder:
@@ -46,37 +46,43 @@ keypoints:
 
 ## Download/Setup the pipeline (remote)
 
-1. Open a new terminal window and log in to Graham, replacing [user_name] with your Graham username:
+1. Open a new terminal window and log into Graham, replacing [user_name] with your Graham username:
 
     ```bash
     >> ssh [user_name]@graham.computecanada.ca
     ```
 
-2. Navigate to the location where you want to download the pipeline onto the remote cluster, again replacing [user_name] with your Graham username, and [group_name] with the name of your group:
+2. Navigate to the location where you want to download the pipeline onto the remote cluster:
 
     ```bash
-	>> cd /project/[group_name]/[user_name]/
+	>> cd scratch/
     ```
 
-3. Create a project folder (we will call it 'Face_13' here):
+3. Create a project folder (we will call it 'Face13' here):
 
     ```bash
-    >> mkdir Face_13
+    >> mkdir Face13
     ```
 
-4. Change directory into the Face_13 folder:
+4. Change directory into the Face13 folder:
 
     ```bash
-    >> cd Face_13
+    >> cd Face13
     ```
 
-5. In the Face_13 folder, create a derivatives folder: 
+5. In the Face13 folder, create a derivatives folder: 
 
     ```bash
     >> mkdir derivatives
     ```
 
-6. Within the derivatives folder, clone/download the pipeline repository. **NOTE:** Use the recursive flag in order to clone all the required submodules:
+6. Change directory into the derivatives folder:
+
+    ```bash
+    >> cd derivatives
+    ```
+
+7. Within the derivatives folder, clone/download the pipeline repository. **NOTE:** Use the recursive flag in order to clone all the required submodules:
 
     ```bash
     >> git clone --recursive https://github.com/BUCANL/BIDS-Lossless-EEG.git
