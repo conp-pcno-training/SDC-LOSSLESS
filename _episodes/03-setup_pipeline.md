@@ -90,13 +90,25 @@ keypoints:
 
 ## Remote setup
 
-1. Navigate back to the root of your **remote** project folder:
+1. Navigate to the folder that contains your octave packages:
 
     ```bash
-    >> cd ..
+    >> cd ~/octave
     ```
 
-2. Run the remote setup script and follow the on screen prompts:
+2. Remove folders if any of the following (IO, Signal, Struct, Control, Parallel) are located in your octave directory:
+
+    ```bash
+    >> rm -rf *
+    ```
+
+3. Navigate back to the root of your **remote** project folder, replacing [user_name] with your compute canada user name and [project_name] with `Face13`:
+
+    ```bash
+    >> cd /scratch/[user_name]/[project_name]
+    ```
+
+4. Run the remote setup script and follow the on screen prompts:
 
     ```bash
     >> bash derivatives/BIDS-Lossless-EEG/code/install/setup-remote.sh
