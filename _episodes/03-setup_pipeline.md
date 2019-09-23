@@ -13,32 +13,25 @@ keypoints:
 
 ## Download/Setup the pipeline (local)
 
-1. You will need the git package. You likely already have it natively installed with your system. If this is not the case, open up a terminal window, and type:
-
-    ```bash
-    >> sudo apt-get update
-    >> sudo apt-get install git
-    ```
-
-2. In the terminal, navigate to the root of your project (this will be the Face13 folder):
+1. In the terminal, navigate to the root of your project (this will be the Face13 folder):
 
     ```bash
     >> cd path/to/project/directory/Face13
     ```
 
-3. If there is not already a derivatives folder within your project folder, create a derivatives folder:
+2. If there is not already a derivatives folder within your project folder, create a derivatives folder:
 
     ```bash
     >> mkdir derivatives
     ```
 
-4. Change directory into the derivatives folder:
+3. Change directory into the derivatives folder:
     
     ```bash
     >> cd derivatives
     ```
 
-5. Within the derivatives folder, clone/download the pipeline repository. **NOTE:** Use the recursive flag in order to clone all the required submodules:
+4. Within the derivatives folder, clone/download the pipeline repository. **NOTE:** Use the recursive flag in order to clone all the required submodules:
 
     ```bash
     >> git clone --recursive https://github.com/BUCANL/BIDS-Lossless-EEG.git
@@ -52,10 +45,10 @@ keypoints:
     >> ssh [user_name]@graham.computecanada.ca
     ```
 
-2. Navigate to the location where you want to download the pipeline onto the remote cluster:
+2. Navigate to the location where you want to download the pipeline onto the remote cluster, replacing [user_name] with your Graham username:
 
     ```bash
-	>> cd scratch/
+	>> cd /scratch/[user_name]
     ```
 
 3. Create a project folder (we will call it 'Face13' here):
@@ -96,11 +89,7 @@ keypoints:
     >> cd ~/octave
     ```
 
-2. Remove folders if any of the following (IO, Signal, Struct, Control, Parallel) are located in your octave directory:
-
-    ```bash
-    >> rm -rf *
-    ```
+2. Check if any of the following are in your octave directory: IO, Signal, Struct, Control, Parallel. Remove these directories if they are present.
 
 3. Navigate back to the root of your **remote** project folder, replacing [user_name] with your compute canada user name and [project_name] with `Face13`:
 
