@@ -2,7 +2,7 @@
 
 [![Create a Slack Account with us](https://img.shields.io/badge/Create_Slack_Account-The_Carpentries-071159.svg)](https://swc-slack-invite.herokuapp.com/)
 
-FIXME
+Click [here](https://bucanl.github.io/SDC-LOSSLESS/index.html) to go to the tutorial page.
 
 ## Contributing
 

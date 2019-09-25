@@ -47,7 +47,7 @@
 [workshop-repo]: {{ site.workshop_repo }}
 [yaml]: http://yaml.org/
 
-[bids_lossless_eeg]: https://git.sharcnet.ca/bucanl_pipelines/bids_lossless_eeg
+[bids_lossless_eeg]: https://github.com/BUCANL/BIDS-Lossless-EEG
 [globus]: https://app.globus.org
 [gcp]: https://app.globus.org/file-manager/gcp
 [globusfm]: https://app.globus.org/file-manager
