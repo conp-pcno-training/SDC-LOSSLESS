@@ -8,7 +8,7 @@ objectives:
 - "Setting up the Lossless pipeline to prepare for submitting jobs."
 keypoints:
 - "Ensure the pipeline is set up on both the **local** and **remote** machine."
-- "Remember to always pay attention to whether you are running a BASH command on your **local** machine versus the **remote** computer cluster."
+- "Remember to always pay attention to whether you are running a bash command on your **local** machine versus the **remote** computer cluster."
 ---
 
 ## Download/Setup the pipeline (local)
@@ -91,7 +91,7 @@ keypoints:
 
 2. Check if any of the following are in your octave directory: IO, Signal, Struct, Control, Parallel. Remove these directories if they are present.
 
-3. Navigate back to the root of your **remote** project folder, replacing [user_name] with your compute canada user name and [project_name] with `Face13`:
+3. Navigate back to the root of your **remote** project folder, replacing [user_name] with your own username and [project_name] with your project name (the project name for the tutorial is `Face13`):
 
     ```bash
     >> cd /scratch/[user_name]/[project_name]
