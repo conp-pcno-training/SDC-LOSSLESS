@@ -91,7 +91,7 @@ keypoints:
 
 8. Click `| Ok |` and type your Graham password in the command window when prompted. You will have to enter your password several times, unless you have [ssh keys](https://docs.computecanada.ca/wiki/Using_SSH_keys_in_Linux) set up. Your jobs should now start submitting for each data file, sequentially, one script at a time.
 
-   ![Run History Template Batch Window]({{ page.root }}/fig/runhtb_lossless.png)
+   ![Run History Template Batch Window]({{ page.root }}/fig/runhtblossless.png)
 
 ## Query running jobs
 

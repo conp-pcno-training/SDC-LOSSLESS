@@ -43,7 +43,7 @@ The recorded data will be warped to the standard montage based off of a transfor
 
 5. A popup window that plots the recording montage and the standard montage will appear. The goal is to have the two montages sit on the same surface with corresponding electrodes as close to each other as possible. This can be done by adjusting the parameters of the transformation matrix that are located at the bottom of the window.
 
-        ![CoregistrationMontage]({{ page.root }}/fig/rotated_coreg.png)
+    ![Coregistration Montage]({{ page.root }}/fig/rotatedcoreg.png)
 
 Hints: 
 - the recording montage is on a very different scale than the standard montage- this can be adjusted by putting large numbers in the Resize(x), Resize(y), and Resize(z) fields.
@@ -54,8 +54,8 @@ Hints:
 - The head that is shown with the montages can be toggled by pressing the `Mesh on/off` button
 
 > ## Solution
-> ![WarpedMontage]({{ page.root }}/fig/aligned_montageon.png)
-> [0.500 -22.000 -48.000 -0.065 0.000 -1.580 1060.000 1260.000 1220.000]
+> ![Warped Montage]({{ page.root }}/fig/alignedmontageon.png)
+> The transformation matrix that will be pasted into [montage_info] in c01_scalpart.cfg is: [0.500 -22.000 -48.000 -0.065 0.000 -1.580 1060.000 1260.000 1220.000]
 >
 > {: .output}
 {: .solution}
@@ -64,7 +64,7 @@ Hints:
 
 7. In the MATLAB command window, it will print: [montage_info] for c01_scalpart.cfg followed by the transformation matrix (nine numbers). Copy and paste these values into the c01_scalpart_remote.cfg file located in `derivatives/BIDS-Lossless-EEG/code/config/face13_sbatch`. These numbers need to be within square brackets. 
 
-        ![TransformationMatrix]({{ page.root }}/fig/highlighted_transformmatrix.png)
+    ![Transformation Matrix]({{ page.root }}/fig/highlightedtransformmatrix.png)
 
 8. In the EEGLAB drop-down menu, navigate to **File** and select `Clear study/ Clear all` to remove the dataset from memory.
 
