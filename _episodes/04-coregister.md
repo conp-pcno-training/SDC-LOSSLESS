@@ -40,9 +40,9 @@ Co-registering is the process of aligning the recording montage with a standard 
 
     ![Coregistration Montage]({{ page.root }}/fig/rotatedcoreg.png)
 
-> ## Determining the Tranformation Matrix
+> ## Determining the Transformation Matrix
 > 
-> The goal is to have the two montages sit on the same surface with corresponding electrodes as close to each other as possible. This can be done by adjusting the parameters of the transformation matrix that are located at the bottom of the window.
+> The goal is to have the two montages sit on the same surface with corresponding electrodes as close to each other as possible. The fiducials (LPA, Nz, RPA) should be used to determine if the montages are aligning. This can be done by adjusting the parameters of the transformation matrix that are located at the bottom of the window. 
 >
 > {: .source}
 >
@@ -51,11 +51,10 @@ Co-registering is the process of aligning the recording montage with a standard 
 > > - The nose direction of the recording montage is different than the nose direction of the standard montage. This can be corrected by putting (-1.58) in the `Yaw(raf)` field. 
 > > - The recording montage is on a very different scale thatn the standard montage. This can be adjusted by putting large numbers (>1000) in the `Resize(x)`, `Resize(y)`, and `Resize(z)` fields. 
 > > - Once the montages at the same size and facing the same direction, use the `Move right`, `Move front`, and `Move up` fields to adjust where in the montages are in space relative to each other.
-> > - It can be helpful to look at the fiducials (LPA, Nz, and RPA) to see if the montages are aligning.
 > > - The mesh head that is plotted iwth the montages can be toggled by pressing the `Mesh on/off` button.
 > >
 > > {: .output}
-> {: .checklist}
+> {: .discussion}
 >
 > > ## Solution
 > >
