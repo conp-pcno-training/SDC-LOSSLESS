@@ -6,8 +6,8 @@ questions:
 - "Why is co-registering EEG data important?"
 - "How do I co-register EEG data?"
 objectives:
-- "Understand why co-registering data is important"
-- "Understand how to co-register EEG data"
+- "Understand why co-registering data is important."
+- "Understand how to co-register EEG data."
 keypoints:
 - "Co-registering data to a standard montage allows for comparison to other studies."
 - "Co-registration occurs during the Lossless Pipeline in the s01 script based on a determined transformation matrix."
@@ -15,7 +15,7 @@ keypoints:
 
 ## Introduction
 
-Co-registering is the process of aligning the recording montage with a standard montage, allowing for the data to be compared to other studeis. Co-registration of the data to the standard MNI head will occur during the Lossless Pipeline in the s01_scalpart script. Prior to running the pipeline, the appropriate transformation matrix that will warp the recorded data to the standard montage needs to be determined. The transformation matrix can be determined using the `ll_validate.m` script and this matrix can then be input into the `[montage_info]` field in the batch configuration file c01.
+Co-registering is the process of aligning the recording montage with a standard montage, allowing for the data to be compared to other studeis. Co-registration of the data to the standard MNI head will occur during the Lossless Pipeline in the `s01_scalpart script`. Prior to running the pipeline, the appropriate transformation matrix that will warp the recorded data to the standard montage needs to be determined. The transformation matrix can be determined using the `ll_validate.m` script and this matrix can then be input into the `[montage_info]` field in the batch configuration file `c01`.
 
 ## Co-registration Procedure 
 
@@ -59,7 +59,7 @@ Co-registering is the process of aligning the recording montage with a standard 
     > > ## Solution
     > >
     > > ![Warped Montage]({{ page.root }}/fig/alignedmontageon.png)
-    > > The transformation matrix that will be input into [montage_info] in c01_scalpart.cfg is: [0.500 -22.000 -48.000 -0.065 0.000 -1.580 1060.000 1260.000 1220.000]
+    > > For the Face13 tutorial, the transformation matrix that will be input into `[montage_info]` in `c01_scalpart.cfg` is: [0.500 -22.000 -48.000 -0.065 0.000 -1.580 1060.000 1260.000 1220.000]
     > >
     > > {: .output}
     > {: .solution}
@@ -67,7 +67,7 @@ Co-registering is the process of aligning the recording montage with a standard 
 
 6. When you are satisfied with the alignment between the two montages, select the `Ok` button.
 
-7. In the MATLAB command window, it will print: [montage_info] for c01_scalpart.cfg followed by the transformation matrix (nine numbers). Copy and paste these values into the `c01_scalpart_remote.cfg` file located in `derivatives/BIDS-Lossless-EEG/code/config/face13_sbatch`. These numbers need to be within square brackets in the batch configuration file. 
+7. In the MATLAB command window, it will print: [montage_info] for c01_scalpart.cfg followed by the transformation matrix (nine numbers). Copy and paste these values into the `[montage_info]` field in the `c01_scalpart_remote.cfg` file located in `derivatives/BIDS-Lossless-EEG/code/config/face13_sbatch`. These numbers need to be within square brackets in the batch configuration file. 
 
     ![Transformation Matrix]({{ page.root }}/fig/highlightedtransformmatrix.png)
 
