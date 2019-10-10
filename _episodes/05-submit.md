@@ -9,8 +9,8 @@ objectives:
 - "Submitting a batch of EEG files to run remotely through the Lossless pipeline."
 keypoints:
 - "Ensure you have all the pipeline files and your data files on both the **local** and **remote** machine."
-- "The input file for the Lossless pipeline is `*_eeg.edf` and the output files are `*.edf`, `*icasphere.tsv`, `*icaweights.tsv`, `*_annotations.mat`, `*_annotations.tsv`, and `*_annotations.json`."
-- "Remember to always pay attention to whether you are running a BASH command on your **local** machine versus the **remote** computer cluster."
+- "The input file for the Lossless pipeline is `*_eeg.edf` and the output files are `*.edf`, `*icasphere.tsv`, `*icaweights.tsv`, `*dipole.mat`,  `*_annotations.mat`, `*_annotations.tsv`, and `*_annotations.json`."
+- "Remember to always pay attention to whether you are running a bash command on your **local** machine versus the **remote** computer cluster."
 ---
 
 ## Copy files from local to remote
@@ -45,11 +45,11 @@ keypoints:
 
 4. Modify the appropriate fields under Remote Locations, which will correspond to the remote paths for the project. Change the `remote_user_name` field to you user name on the remote system. The `[remote_project_archive]` field can be left as the default. In the `remote_project_work` and `remote_dependency` fields, change the  `[user_name]` and `[project_name]` to your remote user name and your project name. Once you have finished modifying the context configuration file, select `| Save as |` and navigate to the `derivatives/BIDS-Lossless-EEG/code/config/` directory and save the configuration file here. It is recommended to save the context configuration file as `contextconfig_[user_name]_[project_name].cfg. 
 
-> ## Note
-> The `remote_exec_host` field is the host and domain of the remote system. The `remote_project_archive` field is the remote path to the archieve location for where you would like to store processed files long term. On Graham, typically this is the [project file system](https://docs.computecanada.ca/wiki/Project_layout). Finally, the `remote_project_work` directory is the remote path to the location of the work root project directory, where the actual jobs will be run, and the `remote dependency` is the same as the `remote_project_work` directory, but a few levels deeper (`derivatives/BIDS-Lossless-EEG/code/dependencies/`). For more info, see the Batch Context wiki about [Context configuration files](https://github.com/BUCANL/Batch-Context/wiki/Context-Configuration-Files).
->
-> {: .source}
-{: .callout}
+    > ## Note
+    > The `remote_exec_host` field is the host and domain of the remote system. The `remote_project_archive` field is the remote path to the archieve location for where you would like to store processed files long term. On Graham, typically this is the [project file system](https://docs.computecanada.ca/wiki/Project_layout). Finally, the `remote_project_work` directory is the remote path to the location of the work root project directory, where the actual jobs will be run, and the `remote dependency` is the same as the `remote_project_work` directory, but a few levels deeper (`derivatives/BIDS-Lossless-EEG/code/dependencies/`). For more info, see the Batch Context wiki about [Context configuration files](https://github.com/BUCANL/Batch-Context/wiki/Context-Configuration-Files).
+    >
+    > {: .source}
+    {: .callout}
 
 5. In the EEGLAB drop-down menu, navigate to **File->Batch->Batch Configuration** and click `| Get batch config file names |` to load the default batch configuration file(s) that can then be modified and saved. The configuration files we want to select for the Face13 data are in the `derivatives/BIDS-Lossless-EEG/code/config/face13_sbatch` folder. You want to select the seven files that are named 'c01-c05'. Once the files have been selected, click `| Clear/Load |` to load the files into the property grid.
 
@@ -91,7 +91,7 @@ keypoints:
 
 8. Click `| Ok |` and type your Graham password in the command window when prompted. You will have to enter your password several times, unless you have [ssh keys](https://docs.computecanada.ca/wiki/Using_SSH_keys_in_Linux) set up. Your jobs should now start submitting for each data file, sequentially, one script at a time.
 
-   ![Run History Template Batch Window]({{ page.root }}/fig/runhtb_lossless.png)
+   ![Run History Template Batch Window]({{ page.root }}/fig/runhtblossless.png)
 
 ## Query running jobs
 
@@ -111,7 +111,7 @@ keypoints:
 
 ## Copy files from remote to local
 
-1. Once the files have successfully run through each stage of the pipeline, you should end up with an identical folder structure (`sub-*/eeg/`) in your **remote** `derivatives/BIDS-Lossless-EEG/` folder for each of the data files that ran through the pipeline. There will be intermediary files and several final output files for each participant. The final output files are `*.edf`, `*icasphere.tsv`, `*icaweights.tsv`, `*_annotations.mat`, `*_annotations.tsv`, `*_annotations.json`, and `*_iclabel.mat`. 
+1. Once the files have successfully run through each stage of the pipeline, you should end up with an identical folder structure (`sub-*/eeg/`) in your **remote** `derivatives/BIDS-Lossless-EEG/` folder for each of the data files that ran through the pipeline. There will be intermediary files and several final output files for each participant. The final output files are `*.edf`, `*icasphere.tsv`, `*icaweights.tsv`, `*dipole.mat`, `*_annotations.mat`, `*_annotations.tsv`, `*_annotations.json`, and `*_iclabel.mat`. 
 
 2. To check if all files have in fact made it through the entire pipeline, you may locate these `*.edf*` files using the find command, and seeing if there are any files missing:
 
@@ -128,7 +128,7 @@ keypoints:
 4. Now, transfer the files using the following command in the terminal, replacing [user_name] with your own username and [project_name] with 'Face13':
 
     ```bash
-    >> rsync -rthvv --prune-empty-dirs --progress --include="*iclabel.mat" --include="*.edf" --include="*icaweights.*" --include="*icasphere.*" --include="*_annotations*" --include="*/" --exclude="*" --exclude=”/*/*/*/*/” [user_name]@gra-dtn1.computecanada.ca:/scratch/[user_name]/[project_name]/derivatives/BIDS-Lossless-EEG/sub-* derivatives/BIDS-Lossless-EEG/
+    >> rsync -rthvv --prune-empty-dirs --progress --include="*dipole.mat" --include="*iclabel.mat" --include="*.edf" --include="*icaweights.*" --include="*icasphere.*" --include="*_annotations*" --include="*/" --exclude="*" --exclude="/*/*/*/*/" [user_name]@gra-dtn1.computecanada.ca:/scratch/[user_name]/[project_name]/derivatives/BIDS-Lossless-EEG/sub-* derivatives/BIDS-Lossless-EEG/
     ```
 
 5. Once this procedure is completed, you should notice all the output files in your **local** `derivatives/BIDS-Lossless-EEG/` directory. These files can now be put through the [QC procedure](https://bucanl.github.io/SDC-LOSSLESS-QC/index.html) for further processing.
