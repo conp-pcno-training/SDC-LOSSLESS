@@ -26,6 +26,14 @@ keypoints:
     ```bash
     >> rsync -rthvv --prune-empty-dirs --progress --include="*sub*" --include="*/" --exclude="*" --exclude="/*/*/*/*/" sub-* [user_name]@gra-dtn1.computecanada.ca:/scratch/[user_name]/[project_name]/
     ```
+    > ## Note 
+    > Windows does not have support for rsync. Use the following command instead:     
+    >
+    > ```bash
+    > >> scp -r sub-* [user_name]@gra-dtn1.computecanada.ca:/scratch/[user_name]/[project_name]/
+    > ```
+    > {: .source}
+    {: .callout}
 
 ## Configuration file setup
 
@@ -135,6 +143,16 @@ keypoints:
     ```bash
     >> rsync -rthvv --prune-empty-dirs --progress --include="*dipole.mat" --include="*iclabel.mat" --include="*.edf" --include="*icaweights.*" --include="*icasphere.*" --include="*_annotations*" --include="*/" --exclude="*" --exclude="/*/*/*/*/" [user_name]@gra-dtn1.computecanada.ca:/scratch/[user_name]/[project_name]/derivatives/BIDS-Lossless-EEG/sub-* derivatives/BIDS-Lossless-EEG/
     ```
+
+    > ## Note 
+    > Windows does not have support for rsync. Use the below command instead. Note that more files will be downloaded as a result of scp grabbing **all** files in the subject folders.
+    >
+    > ```bash
+    > >> scp -r [user_name]@gra-dtn1.computecanada.ca:/scratch/[user_name]/[project_name]/derivatives/BIDS-Lossless-EEG/sub-* derivatives/BIDS-Lossless-EEG/
+    > ```
+    > {: .source}
+    {: .callout}
+
 
 5. Once this procedure is completed, you should notice all the output files in your **local** `derivatives/BIDS-Lossless-EEG/` directory. These files can now be put through the [QC procedure](https://bucanl.github.io/SDC-LOSSLESS-QC/index.html) for further processing.
 
