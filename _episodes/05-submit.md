@@ -118,6 +118,11 @@ keypoints:
     ```bash
     >> find derivatives/BIDS-Lossless-EEG/sub-* -type f -name "*.edf*"
     ```
+    > ## Note 
+	> Files that are missing from this find command did not make it all the way through the pipeline. The log files for the job submission can be investigated to determine why a file did not successfully complete. These log files are located in 'derivatives/BIDS-Lossless-EEG/log/'.   	 
+	>
+	> {: .source}
+	{: .callout}
 
 3. Now, you may copy these output files back to your **local** project directory. Make sure you are currently in your **local** project directory, if you aren’t already:
 
