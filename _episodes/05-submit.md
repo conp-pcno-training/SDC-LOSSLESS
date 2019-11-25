@@ -51,7 +51,7 @@ keypoints:
 
     ![Context Config Window]({{ page.root }}/fig/contextconfig.png)
 
-4. Modify the appropriate fields under Remote Locations, which will correspond to the remote paths for the project. Change the `remote_user_name` field to you user name on the remote system. The `[remote_project_archive]` field can be left as the default. In the `remote_project_work` and `remote_dependency` fields, change the  `[user_name]` and `[project_name]` to your remote user name and your project name. Once you have finished modifying the context configuration file, select `| Save as |` and navigate to the `derivatives/BIDS-Lossless-EEG/code/config/` directory and save the configuration file here. It is recommended to save the context configuration file as `contextconfig_[user_name]_[project_name].cfg. 
+4. Modify the appropriate fields under Remote Locations, which will correspond to the remote paths for the project. Change the `remote_user_name` field to you user name on the remote system. The `[remote_project_archive]` field can be left as the default. In the `remote_project_work` and `remote_dependency` fields, change the  `[user_name]` and `[project_name]` to your remote user name and your project name. Once you have finished modifying the context configuration file, select `| Save as |` and navigate to the `derivatives/BIDS-Lossless-EEG/code/config/` directory and save the configuration file here. It is recommended to save the context configuration file as `contextconfig_[user_name]_[project_name].cfg`. 
 
     > ## Note
     > The `remote_exec_host` field is the host and domain of the remote system. The `remote_project_archive` field is the remote path to the archieve location for where you would like to store processed files long term. On Graham, typically this is the [project file system](https://docs.computecanada.ca/wiki/Project_layout). Finally, the `remote_project_work` directory is the remote path to the location of the work root project directory, where the actual jobs will be run, and the `remote dependency` is the same as the `remote_project_work` directory, but a few levels deeper (`derivatives/BIDS-Lossless-EEG/code/dependencies/`). For more info, see the Batch Context wiki about [Context configuration files](https://github.com/BUCANL/Batch-Context/wiki/Context-Configuration-Files).
@@ -59,19 +59,29 @@ keypoints:
     > {: .source}
     {: .callout}
 
-5. In the EEGLAB drop-down menu, navigate to **File->Batch->Batch Configuration** and click `| Get batch config file names |` to load the default batch configuration file(s) that can then be modified and saved. The configuration files we want to select for the Face13 data are in the `derivatives/BIDS-Lossless-EEG/code/config/face13_sbatch` folder. You want to select the seven files that are named 'c01-c05'. Once the files have been selected, click `| Clear/Load |` to load the files into the property grid.
+5. In the EEGLAB drop-down menu, navigate to **File->Batch->Batch Configuration** and click `| Get batch config file names |` to load the default batch configuration file(s) that can then be modified and saved. The configuration files we want to edit for the Face13 data are named `c01-c05` and are located in the `derivatives/BIDS-Lossless-EEG/code/config/face13_sbatch` folder. It is recommended that you load, edit and save the configutation files **one at a time**. 
+
+6. Once you have a file selected, click the `| Clear/Load |` button to load the file into the property grid.
 
    ![Batch Config Window]({{ page.root }}/fig/batchconfig.png)
 
-6. Change the `submit_options` field in each batch configuration file to `--account=[group_name]`, where [group_name] is the name of your allocation group on Graham. The rest of the parameters in batch configuration files are optimized for the Face13 tutorial dataset.
+7. Change the `submit_options` field in each batch configuration file to `--account=[group_name]`, where [group_name] is the name of your allocation group on Graham. The rest of the parameters in batch configuration files are optimized for the Face13 tutorial dataset.
 
-7. Once you are done editing the parameters, you can click `|Save as|`, select all of the files, and iteratively save each configuration.
+8. Once you are done editing the parameters, you can click `|Save as|` and navigate back to the `derivatives/BIDS-Lossless-EEG/code/config/face13_sbatch` folder and save the configuration file with the same name as before. 
 
-> ## Note 
-> For most new projects, you might need to adjust some of the parameters here for running the pipeline. The most common changes for most other projects would be adjusting the `memory` and `time_limit` properties to optimize job runtimes. Once you are satisfied with all the parameters, you can click `| Save as |` to save each of the files with their new parameters, so that they can easily be loaded for future use. For more info, see the Batch Context wiki about [Batch configuration files](https://github.com/BUCANL/Batch-Context/wiki/Batch-Configuration-Files). 
+    > ## Note
+    > If you have loaded and edited multiple configuration files at once, after you click `| Save as |`, you **must** select all of the files and iteratively save each file.
+    >
+    >{: .source}
+    {: .callout}
+
+9. Click the `| Clear/New |` button and repeat the process for all seven of the batch configuration files (c01-c05).
+
+> ## Common Errors
+> An easy way to check for errors is to compare your newly created files against the default Face13 configurations on the [BUCANL Github](https://github.com/BUCANL/BIDS-Lossless-EEG/tree/master/code/config/face13_sbatch). In particular, the `order` subfield of each config file should remain exactly the same as the corresponding default file. If these have changed, you have most likely overwritten some of your config files. In this case, you will have to update these files and go through the editing process again. To update the files, you can copy and paste directly from the Github page to the configuration file in your project. 
 >
-> {: .source}
-{: .callout}
+>{: .source}
+{: .discussion}
 
 ## Submit jobs
 
