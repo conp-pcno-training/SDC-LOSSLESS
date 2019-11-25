@@ -83,6 +83,21 @@ keypoints:
 
 ## Remote setup
 
+If you are starting a new study, this process will need to be repeated. However, the Octave package installation will typically proceed much quicker if the new study is being run on the same account. 
+
+> ## Note 
+> If the `setup-remote.sh` procedure fails, or needs to be rerun for any reason, the **lock** files must be removed. These files prevent portions of the `setup-remote.sh` procedure from being run. An important distinction is that these files are created upon success **or** failure. This means that if something has gone wrong during the process, the lock files will need to be removed or `setup-remote.sh` will skip that section of the procedure. Below are the bash commands to remove the four lock files that are created. These commands are meant to be run from the project root on the remote.
+>
+> ```bash
+> >> rm derivatives/BIDS-Lossless-EEG/code/misc/locks/amica-make.lock
+> >> rm derivatives/BIDS-Lossless-EEG/code/misc/locks/executable-files.lock
+> >> rm derivatives/BIDS-Lossless-EEG/code/misc/locks/fieldtrip-made.lock
+> >> rm derivatives/BIDS-Lossless-EEG/code/misc/locks/octave-pkgs.lock
+> ```
+>
+>{: .source}
+{: .callout}
+
 1. Navigate to the folder that contains your octave packages:
 
     ```bash

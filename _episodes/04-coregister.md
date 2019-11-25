@@ -15,7 +15,7 @@ keypoints:
 
 ## Introduction
 
-Co-registering is the process of aligning the recording montage with a standard montage, allowing for the data to be compared to other studeis. Co-registration of the data to the standard MNI head will occur during the Lossless Pipeline in the `s01_scalpart script`. Prior to running the pipeline, the appropriate transformation matrix that will warp the recorded data to the standard montage needs to be determined. The transformation matrix can be determined using the `ll_validate.m` script and this matrix can then be input into the `[montage_info]` field in the batch configuration file `c01`.
+Co-registering is the process of aligning the recording montage with a standard montage, allowing for the data to be compared to other studeis. Co-registration of the data to the standard MNI head will occur during the Lossless pipeline in the `s01_scalpart script`. Prior to running the pipeline, the appropriate transformation matrix that will warp the recorded data to the standard montage needs to be determined. The transformation matrix can be determined using the `ll_validate.m` script and this matrix can then be input into the `[montage_info]` field in the batch configuration file `c01`.
 
 ## Co-registration Procedure 
 
